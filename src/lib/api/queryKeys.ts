@@ -20,8 +20,7 @@ export const queryKeys = {
   },
   transactions: {
     all: () => ["transactions"] as const,
-    list: (query: TransactionQuery) =>
-      ["transactions", "list", query] as const,
+    list: (query: TransactionQuery) => ["transactions", "list", query] as const,
     detail: (id: string) => ["transactions", "detail", id] as const,
   },
   profile: {

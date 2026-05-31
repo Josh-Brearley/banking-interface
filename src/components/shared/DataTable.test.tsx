@@ -29,7 +29,9 @@ function setViewport(isDesktop: boolean) {
   })) as typeof window.matchMedia;
 }
 
-function renderTable(props: Partial<Parameters<typeof DataTable<Row>>[0]> = {}) {
+function renderTable(
+  props: Partial<Parameters<typeof DataTable<Row>>[0]> = {},
+) {
   return render(
     <DataTable
       caption="Rows"

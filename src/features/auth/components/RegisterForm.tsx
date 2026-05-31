@@ -43,7 +43,11 @@ export function RegisterForm() {
           Join Eagle Bank in minutes.
         </p>
 
-        <form className="mt-6 flex flex-col gap-4" onSubmit={onSubmit} noValidate>
+        <form
+          className="mt-6 flex flex-col gap-4"
+          onSubmit={onSubmit}
+          noValidate
+        >
           {generalError && (
             <p
               role="alert"
@@ -82,14 +86,21 @@ export function RegisterForm() {
             {...register("confirmPassword")}
           />
 
-          <Button type="submit" isLoading={registerMutation.isPending} fullWidth>
+          <Button
+            type="submit"
+            isLoading={registerMutation.isPending}
+            fullWidth
+          >
             Create account
           </Button>
         </form>
 
         <p className="mt-4 text-center text-body-sm text-foreground-muted">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-primary hover:underline">
+          <Link
+            to="/login"
+            className="font-medium text-primary hover:underline"
+          >
             Log in
           </Link>
         </p>

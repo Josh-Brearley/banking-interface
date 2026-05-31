@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/providers/AuthProvider";
+import { useLogout } from "@/features/auth";
 import { Button, Spinner } from "@/components/ui";
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { cn, getInitials } from "@/lib/utils";
@@ -14,12 +15,14 @@ const NAV_ITEMS = [
 
 /** Authenticated app shell: nav + main outlet — specs/01-architecture.md §4. */
 export function AppShell() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
+  const logout = useLogout();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login", { replace: true });
+  const handleLogout = () => {
+    logout.mutate(undefined, {
+      onSuccess: () => navigate("/login", { replace: true }),
+    });
   };
 
   return (
@@ -33,10 +36,7 @@ export function AppShell() {
 
       <header className="flex items-center justify-between border-b border-border bg-surface px-4 py-3 md:flex-col md:items-stretch md:justify-start md:gap-6 md:border-b-0 md:border-r md:py-6">
         <div className="flex items-center md:justify-center">
-          <BrandLogo
-            variant="icon"
-            className="h-14 w-14 md:h-20 md:w-20"
-          />
+          <BrandLogo variant="icon" className="h-14 w-14 md:h-20 md:w-20" />
         </div>
 
         <nav aria-label="Primary" className="hidden md:block">
@@ -69,7 +69,9 @@ export function AppShell() {
             {user ? getInitials(user.fullName) : "?"}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-body-sm font-medium">{user?.fullName}</p>
+            <p className="truncate text-body-sm font-medium">
+              {user?.fullName}
+            </p>
           </div>
         </div>
 
@@ -77,6 +79,7 @@ export function AppShell() {
           variant="ghost"
           size="sm"
           onClick={handleLogout}
+          isLoading={logout.isPending}
           className="md:justify-start"
         >
           Log out

@@ -13,9 +13,7 @@ describe("Select", () => {
     render(<Select label="Account type" options={options} />);
     const select = screen.getByLabelText("Account type");
     expect(select).toBeInTheDocument();
-    expect(
-      screen.getByRole("option", { name: "Savings" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "Savings" })).toBeInTheDocument();
   });
 
   it("renders a disabled placeholder option", () => {
@@ -27,9 +25,7 @@ describe("Select", () => {
   });
 
   it("marks the field invalid and announces the error", () => {
-    render(
-      <Select label="Account type" options={options} error="Required" />,
-    );
+    render(<Select label="Account type" options={options} error="Required" />);
     const select = screen.getByLabelText("Account type");
     expect(select).toHaveAttribute("aria-invalid", "true");
     expect(select.getAttribute("aria-describedby")).toContain(

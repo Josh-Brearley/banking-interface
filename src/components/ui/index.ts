@@ -9,11 +9,7 @@ export {
   CardFooter,
 } from "./Card";
 export { Input, type InputProps } from "./Input";
-export {
-  Select,
-  type SelectProps,
-  type SelectOption,
-} from "./Select";
+export { Select, type SelectProps, type SelectOption } from "./Select";
 export { Avatar, avatarVariants, type AvatarProps } from "./Avatar";
 export { EmptyState, type EmptyStateProps } from "./EmptyState";
 export { ErrorState, type ErrorStateProps } from "./ErrorState";

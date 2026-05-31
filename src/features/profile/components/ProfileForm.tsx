@@ -115,7 +115,11 @@ export function ProfileForm({
           </fieldset>
 
           <div className="flex items-center gap-3">
-            <Button type="submit" isLoading={update.isPending} disabled={!isDirty}>
+            <Button
+              type="submit"
+              isLoading={update.isPending}
+              disabled={!isDirty}
+            >
               Save changes
             </Button>
             <Button type="button" variant="ghost" onClick={onCancel}>

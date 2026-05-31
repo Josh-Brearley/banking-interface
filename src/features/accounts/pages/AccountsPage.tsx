@@ -3,14 +3,22 @@ import { useSearchParams } from "react-router-dom";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { DataTable } from "@/components/shared/DataTable";
 import { MoneyAmount } from "@/components/shared/MoneyAmount";
-import { EmptyState, Input, type Column, type SortState } from "@/components/ui";
+import {
+  EmptyState,
+  Input,
+  type Column,
+  type SortState,
+} from "@/components/ui";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { maskAccountNumber } from "@/lib/utils";
 import type { Account } from "@/types";
 import type { AccountQuery } from "@/services/accounts.service";
 import { useAccounts } from "../hooks/useAccounts";
 import { AccountCard } from "../components/AccountCard";
-import { AccountStatusBadge, AccountTypeBadge } from "../components/AccountBadges";
+import {
+  AccountStatusBadge,
+  AccountTypeBadge,
+} from "../components/AccountBadges";
 
 const columns: Column<Account>[] = [
   { id: "name", header: "Name", sortable: true, cell: (a) => a.name },

@@ -34,28 +34,31 @@ const NotFoundPage = lazy(() =>
   })),
 );
 
-export const router = createBrowserRouter([
-  { index: true, element: <Navigate to="/dashboard" replace /> },
-  {
-    element: <AuthLayout />,
-    children: [
-      { path: "login", element: <LoginPage /> },
-      { path: "register", element: <RegisterPage /> },
-    ],
-  },
-  {
-    element: <ProtectedRoute />,
-    children: [
-      {
-        element: <AppShell />,
-        children: [
-          { path: "dashboard", element: <DashboardPage /> },
-          { path: "accounts", element: <AccountsPage /> },
-          { path: "transactions", element: <TransactionsPage /> },
-          { path: "profile", element: <ProfilePage /> },
-        ],
-      },
-    ],
-  },
-  { path: "*", element: <NotFoundPage /> },
-]);
+export const router = createBrowserRouter(
+  [
+    { index: true, element: <Navigate to="/dashboard" replace /> },
+    {
+      element: <AuthLayout />,
+      children: [
+        { path: "login", element: <LoginPage /> },
+        { path: "register", element: <RegisterPage /> },
+      ],
+    },
+    {
+      element: <ProtectedRoute />,
+      children: [
+        {
+          element: <AppShell />,
+          children: [
+            { path: "dashboard", element: <DashboardPage /> },
+            { path: "accounts", element: <AccountsPage /> },
+            { path: "transactions", element: <TransactionsPage /> },
+            { path: "profile", element: <ProfilePage /> },
+          ],
+        },
+      ],
+    },
+    { path: "*", element: <NotFoundPage /> },
+  ],
+  { future: { v7_relativeSplatPath: true } },
+);

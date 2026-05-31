@@ -65,9 +65,7 @@ export function ProfilePage() {
             setJustSaved(false);
             setIsEditing(true);
           }}
-          onAvatarChange={(url) =>
-            user && setUser({ ...user, avatarUrl: url })
-          }
+          onAvatarChange={(url) => user && setUser({ ...user, avatarUrl: url })}
         />
       )}
     </div>

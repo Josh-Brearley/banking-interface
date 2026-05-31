@@ -10,14 +10,14 @@ kept in sync as the product evolves.
 Read in this order. Foundation specs (`0x-*`) establish global rules that every feature
 spec inherits and must not contradict.
 
-| #  | Spec | Purpose |
-|----|------|---------|
-| 00 | [Product Constitution](./00-product-constitution.md) | Vision, principles, personas, glossary, Definition of Done. The non-negotiables. |
-| 01 | [Architecture](./01-architecture.md) | Tech stack, folder structure, module boundaries, routing, state management. |
-| 02 | [Design System](./02-design-system.md) | Design tokens + every UI component with props, variants, a11y. |
-| 03 | [API & Data](./03-api-and-data.md) | Domain types, mock data, service-layer contract, endpoint req/res shapes, query keys. |
-| 04 | [Testing Strategy](./04-testing-strategy.md) | Test pyramid, tooling, required coverage, conventions. |
-| 05 | [Cross-Cutting Concerns](./05-cross-cutting.md) | Accessibility, performance, error handling, animation, responsiveness, formatting. |
+| #   | Spec                                                 | Purpose                                                                               |
+| --- | ---------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 00  | [Product Constitution](./00-product-constitution.md) | Vision, principles, personas, glossary, Definition of Done. The non-negotiables.      |
+| 01  | [Architecture](./01-architecture.md)                 | Tech stack, folder structure, module boundaries, routing, state management.           |
+| 02  | [Design System](./02-design-system.md)               | Design tokens + every UI component with props, variants, a11y.                        |
+| 03  | [API & Data](./03-api-and-data.md)                   | Domain types, mock data, service-layer contract, endpoint req/res shapes, query keys. |
+| 04  | [Testing Strategy](./04-testing-strategy.md)         | Test pyramid, tooling, required coverage, conventions.                                |
+| 05  | [Cross-Cutting Concerns](./05-cross-cutting.md)      | Accessibility, performance, error handling, animation, responsiveness, formatting.    |
 
 ### Feature specs
 
@@ -25,13 +25,13 @@ Each feature spec is self-contained for delivery and follows the same shape:
 **Overview → User Stories → Functional Requirements → Design → API Usage →
 Acceptance Criteria → Edge Cases → Tasks → Test Plan.**
 
-| Spec | Scope |
-|------|-------|
-| [auth.spec.md](./features/auth.spec.md) | Login, registration, session, protected routes, logout. |
-| [dashboard.spec.md](./features/dashboard.spec.md) | Overview cards, recent activity, quick actions. |
-| [accounts.spec.md](./features/accounts.spec.md) | Account list (table/card), search, sort. |
-| [transactions.spec.md](./features/transactions.spec.md) | History, filter, sort, paginate, detail drawer. |
-| [profile.spec.md](./features/profile.spec.md) | View/edit profile, avatar upload, validation. |
+| Spec                                                    | Scope                                                   |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| [auth.spec.md](./features/auth.spec.md)                 | Login, registration, session, protected routes, logout. |
+| [dashboard.spec.md](./features/dashboard.spec.md)       | Overview cards, recent activity, quick actions.         |
+| [accounts.spec.md](./features/accounts.spec.md)         | Account list (table/card), search, sort.                |
+| [transactions.spec.md](./features/transactions.spec.md) | History, filter, sort, paginate, detail drawer.         |
+| [profile.spec.md](./features/profile.spec.md)           | View/edit profile, avatar upload, validation.           |
 
 ## Conventions
 

@@ -39,15 +39,15 @@ npm run dev        # http://localhost:5173
 
 ### Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Vite dev server. |
-| `npm run build` | Type-check + production build. |
-| `npm run preview` | Preview the production build. |
-| `npm run typecheck` | `tsc --noEmit` (strict). |
-| `npm run lint` | ESLint — **zero warnings allowed**. |
-| `npm run test` / `test:watch` / `test:cov` | Vitest. |
-| `npm run format` | Prettier. |
+| Script                                     | Description                         |
+| ------------------------------------------ | ----------------------------------- |
+| `npm run dev`                              | Vite dev server.                    |
+| `npm run build`                            | Type-check + production build.      |
+| `npm run preview`                          | Preview the production build.       |
+| `npm run typecheck`                        | `tsc --noEmit` (strict).            |
+| `npm run lint`                             | ESLint — **zero warnings allowed**. |
+| `npm run test` / `test:watch` / `test:cov` | Vitest.                             |
+| `npm run format`                           | Prettier.                           |
 
 ## Tech stack
 
@@ -108,13 +108,13 @@ units** (pennies) and only formatted at the view edge — no floating-point arit
 
 State is deliberately split by ownership rather than dumped into one global store:
 
-| State kind | Owner | Why |
-|------------|-------|-----|
-| **Server / async** | **TanStack Query** | accounts, transactions, dashboard summary, profile. |
-| **Auth / session** | `AuthProvider` (context) + LocalStorage + `/auth/me` | small, app-wide identity. |
-| **Form** | React Hook Form + Zod | performant uncontrolled inputs, schema validation. |
-| **List filters / sort / page** | **URL search params** | shareable, survives refresh & back/forward. |
-| **Ephemeral UI** | local `useState` | modal/drawer open, selected row. |
+| State kind                     | Owner                                                | Why                                                 |
+| ------------------------------ | ---------------------------------------------------- | --------------------------------------------------- |
+| **Server / async**             | **TanStack Query**                                   | accounts, transactions, dashboard summary, profile. |
+| **Auth / session**             | `AuthProvider` (context) + LocalStorage + `/auth/me` | small, app-wide identity.                           |
+| **Form**                       | React Hook Form + Zod                                | performant uncontrolled inputs, schema validation.  |
+| **List filters / sort / page** | **URL search params**                                | shareable, survives refresh & back/forward.         |
+| **Ephemeral UI**               | local `useState`                                     | modal/drawer open, selected row.                    |
 
 ### Why TanStack Query (not Redux)
 

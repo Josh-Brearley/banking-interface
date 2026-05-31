@@ -13,7 +13,10 @@ export function ProtectedRoute() {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <Spinner className="h-6 w-6 text-primary" label="Loading your account" />
+        <Spinner
+          className="h-6 w-6 text-primary"
+          label="Loading your account"
+        />
       </div>
     );
   }

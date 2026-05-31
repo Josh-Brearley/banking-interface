@@ -7,8 +7,10 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "id"> {
+export interface InputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "id"
+> {
   label: string;
   hint?: string;
   error?: string;

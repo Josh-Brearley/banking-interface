@@ -35,8 +35,7 @@ const dotColor: Record<
 };
 
 export interface BadgeProps
-  extends HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof badgeVariants> {
+  extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {
   /** Render a leading status dot (decorative — meaning comes from the text). */
   withDot?: boolean;
 }
@@ -55,7 +54,10 @@ export function Badge({
         <span
           data-testid="badge-dot"
           aria-hidden="true"
-          className={cn("h-1.5 w-1.5 rounded-full", dotColor[variant ?? "neutral"])}
+          className={cn(
+            "h-1.5 w-1.5 rounded-full",
+            dotColor[variant ?? "neutral"],
+          )}
         />
       )}
       {children}

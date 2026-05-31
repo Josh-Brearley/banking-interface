@@ -10,6 +10,7 @@
 (paginated — [03 §4.4](../03-api-and-data.md#44-transactions--transactionsservicets)).
 
 ## 2. User stories
+
 - As a customer, I can **browse and page through** my transaction history.
 - I can **search** and **filter by date range** and **type** to find a transaction.
 - I can **sort** by date or amount.
@@ -17,24 +18,25 @@
 
 ## 3. Functional requirements
 
-| ID | Requirement |
-|----|-------------|
-| `TXN-FR-01` | List transactions with date, description, type badge, status, signed amount. |
-| `TXN-FR-02` | **Search** by description/counterparty/reference (debounced), URL `?q=`. |
-| `TXN-FR-03` | **Date-range filter** (`from`/`to`), inclusive, URL `?from=&to=`. |
-| `TXN-FR-04` | **Type filter** (deposit/withdrawal/transfer/all), URL `?type=`. |
-| `TXN-FR-05` | **Sort by date** and **by amount**, asc/desc, URL `?sort=&dir=`; `aria-sort`. |
-| `TXN-FR-06` | **Pagination** (page/pageSize), URL `?page=`; accessible controls; `placeholderData` keeps previous page during fetch. |
+| ID          | Requirement                                                                                                                               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `TXN-FR-01` | List transactions with date, description, type badge, status, signed amount.                                                              |
+| `TXN-FR-02` | **Search** by description/counterparty/reference (debounced), URL `?q=`.                                                                  |
+| `TXN-FR-03` | **Date-range filter** (`from`/`to`), inclusive, URL `?from=&to=`.                                                                         |
+| `TXN-FR-04` | **Type filter** (deposit/withdrawal/transfer/all), URL `?type=`.                                                                          |
+| `TXN-FR-05` | **Sort by date** and **by amount**, asc/desc, URL `?sort=&dir=`; `aria-sort`.                                                             |
+| `TXN-FR-06` | **Pagination** (page/pageSize), URL `?page=`; accessible controls; `placeholderData` keeps previous page during fetch.                    |
 | `TXN-FR-07` | **Detail drawer/modal** opens on row activation showing full transaction info; focus-trapped; `Esc`/close restores focus (`DS-FR-15/16`). |
-| `TXN-FR-08` | **Loading** → skeleton rows; **Empty** → EmptyState; **Error** → ErrorState + retry. |
-| `TXN-FR-09` | Distinct **filtered-empty** state ("no transactions match your filters") with a **clear filters** action. |
-| `TXN-FR-10` | Amounts signed & coloured by direction (credit `+`/success, debit `−`/danger) — sign always present (`NFR-A11Y-07`). |
-| `TXN-FR-11` | Responsive: table on desktop, cards on mobile. |
-| `TXN-FR-12` | Filters/sort/page are **shareable via URL** and survive refresh & back/forward. |
+| `TXN-FR-08` | **Loading** → skeleton rows; **Empty** → EmptyState; **Error** → ErrorState + retry.                                                      |
+| `TXN-FR-09` | Distinct **filtered-empty** state ("no transactions match your filters") with a **clear filters** action.                                 |
+| `TXN-FR-10` | Amounts signed & coloured by direction (credit `+`/success, debit `−`/danger) — sign always present (`NFR-A11Y-07`).                      |
+| `TXN-FR-11` | Responsive: table on desktop, cards on mobile.                                                                                            |
+| `TXN-FR-12` | Filters/sort/page are **shareable via URL** and survive refresh & back/forward.                                                           |
 
 ## 4. Design
 
 ### 4.1 Components (`features/transactions/`)
+
 - `pages/TransactionsPage`
 - `components/TransactionFilters` (SearchInput, DateRange, type Select, clear-all)
 - `components/TransactionsTable` / `TransactionCard` (via `DataTable<Transaction>`)
@@ -44,11 +46,13 @@
 - `hooks/useTransaction(id)` for the drawer (or read from list cache first)
 
 ### 4.2 Query/URL model
+
 All of `q, type, from, to, sort, dir, page` live in URL search params. A `useTransactionQuery()`
 hook parses/serialises them (with Zod) into the `TransactionQuery` object passed to the service.
 Changing a filter resets `page` to 1.
 
 ### 4.3 Detail drawer
+
 Right-side `Drawer` (bottom sheet on mobile). Shows: amount (large, signed), type, status,
 description, counterparty, reference, account, date/time, category. Opened via row
 button/click; the open transaction id MAY be reflected in URL (`?txn=<id>`) for deep-linking.
@@ -106,6 +110,7 @@ And the sign is present regardless of colour
 ```
 
 ## 6. Edge cases
+
 - `from` after `to` → validation message, no broken query.
 - Combined filters (search + date + type) intersect correctly; clearing one keeps the others.
 - Last page partial; empty final page guard (clamp page to `totalPages`).
@@ -113,6 +118,7 @@ And the sign is present regardless of colour
 - Refresh on a filtered/paged URL restores exactly that view (`TXN-FR-12`).
 
 ## 7. Tasks
+
 - [ ] `useTransactionQuery` (URL ↔ `TransactionQuery`, Zod-parsed, page-reset on filter change).
 - [ ] `useTransactions` with `keepPreviousData`.
 - [ ] `TransactionFilters` (search, date range, type, clear-all).
@@ -124,6 +130,7 @@ And the sign is present regardless of colour
 - [ ] Tests `TXN-AC-02..06` (filter & sort are required coverage), plus drawer a11y.
 
 ## 8. Test plan (filtering & sorting are [04 §3](../04-testing-strategy.md#3-required-coverage-assessment-minimum) minimums)
+
 Integration with MSW serving a known dataset: assert search narrows rows + URL; date-range
 narrows rows; clear-filters restores; sort-by-date and sort-by-amount reorder + `aria-sort`;
 pagination advances + keeps previous page; drawer opens, traps focus, Esc restores focus.

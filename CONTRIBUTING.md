@@ -25,14 +25,14 @@ main ──●────●────────●────────
 <type>/<short-kebab-summary>
 ```
 
-| `type` | Use for | Example |
-|--------|---------|---------|
-| `feat` | A feature spec (`features/*.spec.md`) | `feat/auth`, `feat/transactions-filtering` |
-| `chore` | Tooling, scaffolding, config, deps | `chore/scaffold`, `chore/ci` |
-| `fix` | Bug fix | `fix/login-redirect-loop` |
-| `docs` | Specs / docs only | `docs/accounts-spec` |
-| `refactor` | Behaviour-preserving change | `refactor/data-table` |
-| `test` | Tests only | `test/profile-validation` |
+| `type`     | Use for                               | Example                                    |
+| ---------- | ------------------------------------- | ------------------------------------------ |
+| `feat`     | A feature spec (`features/*.spec.md`) | `feat/auth`, `feat/transactions-filtering` |
+| `chore`    | Tooling, scaffolding, config, deps    | `chore/scaffold`, `chore/ci`               |
+| `fix`      | Bug fix                               | `fix/login-redirect-loop`                  |
+| `docs`     | Specs / docs only                     | `docs/accounts-spec`                       |
+| `refactor` | Behaviour-preserving change           | `refactor/data-table`                      |
+| `test`     | Tests only                            | `test/profile-validation`                  |
 
 Feature branches map 1:1 to a feature spec where possible, so the branch traces to its
 requirement IDs (`AUTH-FR-*`, `TXN-AC-*`, …).

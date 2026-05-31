@@ -59,9 +59,7 @@ describe("DashboardPage", () => {
       makeDashboardSummary(),
     );
     renderDashboard();
-    expect(
-      await screen.findByText("Salary - Acme Ltd"),
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Salary - Acme Ltd")).toBeInTheDocument();
     expect(screen.getByText("Tesco")).toBeInTheDocument();
     const viewAll = screen.getByRole("link", { name: /view all/i });
     expect(viewAll).toHaveAttribute("href", "/transactions");
@@ -72,7 +70,9 @@ describe("DashboardPage", () => {
       new Promise(() => {}),
     );
     renderDashboard();
-    expect(await screen.findByRole("status", { name: /loading/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("status", { name: /loading/i }),
+    ).toBeInTheDocument();
   });
 
   it("shows an empty state when there is no activity (DASH-AC-05)", async () => {

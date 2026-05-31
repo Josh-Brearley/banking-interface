@@ -7,7 +7,11 @@ interface PaginationProps {
 }
 
 /** Accessible pager — specs/02-design-system.md §4. */
-export function Pagination({ page, totalPages, onPageChange }: PaginationProps) {
+export function Pagination({
+  page,
+  totalPages,
+  onPageChange,
+}: PaginationProps) {
   if (totalPages <= 1) return null;
 
   return (

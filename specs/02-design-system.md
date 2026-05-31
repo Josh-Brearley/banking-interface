@@ -18,24 +18,24 @@ variables + Tailwind theme extension so theming (incl. future dark mode) is a to
 
 Define a primitive palette, then map **semantic** tokens. Components use semantic tokens only.
 
-| Semantic token | Light value (ref) | Usage |
-|----------------|-------------------|-------|
-| `--color-background` | `#FBFBFD` | App canvas. |
-| `--color-surface` | `#FFFFFF` | Cards, modals, surfaces. |
-| `--color-surface-muted` | `#F4F5F7` | Subtle fills, skeleton base, table header. |
-| `--color-border` | `#E6E8EC` | Hairline borders, dividers. |
-| `--color-foreground` | `#0B0D12` | Primary text. |
-| `--color-foreground-muted` | `#5B6472` | Secondary text, captions. |
-| `--color-primary` | `#0B2A5B` | Brand **navy** — primary buttons, links, active states, focus. From the logo. |
-| `--color-primary-foreground` | `#FFFFFF` | Text on primary. |
-| `--color-secondary` | `#18A8E0` | Brand **cyan** accent — active indicators, highlights, decorative fills. From the logo. |
-| `--color-secondary-foreground` | `#FFFFFF` | Text on cyan (large/decorative only — cyan fails AA for small text, so it is not used as a text colour). |
-| `--color-secondary-subtle` | `#E0F4FC` | Light cyan background for accents/badges (pair with navy text). |
-| `--color-success` | `#0E8A52` | Deposits/credits, positive. |
-| `--color-warning` | `#B26A00` | Pending, attention. |
-| `--color-danger` | `#C62330` | Withdrawals/errors, destructive. |
-| `--color-info` | `#1577B8` | Informational. |
-| `--color-ring` | `#0B2A5B` | Focus ring (navy — high contrast on the light canvas). |
+| Semantic token                 | Light value (ref) | Usage                                                                                                    |
+| ------------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------- |
+| `--color-background`           | `#FBFBFD`         | App canvas.                                                                                              |
+| `--color-surface`              | `#FFFFFF`         | Cards, modals, surfaces.                                                                                 |
+| `--color-surface-muted`        | `#F4F5F7`         | Subtle fills, skeleton base, table header.                                                               |
+| `--color-border`               | `#E6E8EC`         | Hairline borders, dividers.                                                                              |
+| `--color-foreground`           | `#0B0D12`         | Primary text.                                                                                            |
+| `--color-foreground-muted`     | `#5B6472`         | Secondary text, captions.                                                                                |
+| `--color-primary`              | `#0B2A5B`         | Brand **navy** — primary buttons, links, active states, focus. From the logo.                            |
+| `--color-primary-foreground`   | `#FFFFFF`         | Text on primary.                                                                                         |
+| `--color-secondary`            | `#18A8E0`         | Brand **cyan** accent — active indicators, highlights, decorative fills. From the logo.                  |
+| `--color-secondary-foreground` | `#FFFFFF`         | Text on cyan (large/decorative only — cyan fails AA for small text, so it is not used as a text colour). |
+| `--color-secondary-subtle`     | `#E0F4FC`         | Light cyan background for accents/badges (pair with navy text).                                          |
+| `--color-success`              | `#0E8A52`         | Deposits/credits, positive.                                                                              |
+| `--color-warning`              | `#B26A00`         | Pending, attention.                                                                                      |
+| `--color-danger`               | `#C62330`         | Withdrawals/errors, destructive.                                                                         |
+| `--color-info`                 | `#1577B8`         | Informational.                                                                                           |
+| `--color-ring`                 | `#0B2A5B`         | Focus ring (navy — high contrast on the light canvas).                                                   |
 
 Status colours have a `-subtle` background pair (e.g. `--color-success-subtle`) for badges; the
 brand cyan has `--color-secondary-subtle`.
@@ -60,16 +60,16 @@ MUST be paired with an icon or sign (`+`/`−`), never colour alone.
 
 Sans system stack (e.g. `Inter`, fallback system-ui). Type ramp:
 
-| Token | Size / line-height | Weight | Use |
-|-------|--------------------|--------|-----|
-| `display` | 36 / 40 | 700 | Balance hero. |
-| `h1` | 28 / 34 | 700 | Page titles. |
-| `h2` | 22 / 28 | 600 | Section titles. |
-| `h3` | 18 / 24 | 600 | Card titles. |
-| `body` | 15 / 22 | 400 | Default text. |
-| `body-sm` | 13 / 18 | 400 | Secondary. |
-| `caption` | 12 / 16 | 500 | Labels, meta. |
-| `mono` | 14 / 20 | 500 | Account numbers, amounts (tabular-nums). |
+| Token     | Size / line-height | Weight | Use                                      |
+| --------- | ------------------ | ------ | ---------------------------------------- |
+| `display` | 36 / 40            | 700    | Balance hero.                            |
+| `h1`      | 28 / 34            | 700    | Page titles.                             |
+| `h2`      | 22 / 28            | 600    | Section titles.                          |
+| `h3`      | 18 / 24            | 600    | Card titles.                             |
+| `body`    | 15 / 22            | 400    | Default text.                            |
+| `body-sm` | 13 / 18            | 400    | Secondary.                               |
+| `caption` | 12 / 16            | 500    | Labels, meta.                            |
+| `mono`    | 14 / 20            | 500    | Account numbers, amounts (tabular-nums). |
 
 Money values use `font-variant-numeric: tabular-nums`.
 
@@ -102,34 +102,34 @@ Each component lists: variants (CVA), props, behaviour, a11y. All accept `classN
 
 ```ts
 // cva
-variant:  primary | secondary | outline | ghost | destructive | link
-size:     sm | md | lg | icon
-fullWidth: boolean
+variant: primary | secondary | outline | ghost | destructive | link;
+size: sm | md | lg | icon;
+fullWidth: boolean;
 ```
 
-| Prop | Type | Notes |
-|------|------|-------|
-| `variant` | above | default `primary` |
-| `size` | above | default `md` |
-| `isLoading` | `boolean` | shows spinner, sets `aria-busy`, disables interaction |
-| `leftIcon`/`rightIcon` | `ReactNode` | decorative → `aria-hidden` |
-| `asChild` | `boolean` | render as child (e.g. router `Link`) via Slot pattern |
-| `disabled` | `boolean` | |
-| `...rest` | `ButtonHTMLAttributes` | `type="button"` default |
+| Prop                   | Type                   | Notes                                                 |
+| ---------------------- | ---------------------- | ----------------------------------------------------- |
+| `variant`              | above                  | default `primary`                                     |
+| `size`                 | above                  | default `md`                                          |
+| `isLoading`            | `boolean`              | shows spinner, sets `aria-busy`, disables interaction |
+| `leftIcon`/`rightIcon` | `ReactNode`            | decorative → `aria-hidden`                            |
+| `asChild`              | `boolean`              | render as child (e.g. router `Link`) via Slot pattern |
+| `disabled`             | `boolean`              |                                                       |
+| `...rest`              | `ButtonHTMLAttributes` | `type="button"` default                               |
 
 **Behaviour:** when `isLoading`, content stays for width stability, spinner overlays,
 `disabled` + `aria-busy="true"`. **A11y:** icon-only buttons MUST have `aria-label`.
 
 ### 3.2 Input — `DS-FR-11`
 
-| Prop | Type | Notes |
-|------|------|-------|
-| `label` | `string` | rendered `<label>`; required for a11y |
-| `hint` | `string?` | helper text, linked via `aria-describedby` |
-| `error` | `string?` | error text; sets `aria-invalid`, links via `aria-describedby` |
-| `leftAddon`/`rightAddon` | `ReactNode?` | e.g. `£`, visibility toggle |
-| `id` | auto-generated via `useId` if absent | |
-| `...rest` | `InputHTMLAttributes` | |
+| Prop                     | Type                                 | Notes                                                         |
+| ------------------------ | ------------------------------------ | ------------------------------------------------------------- |
+| `label`                  | `string`                             | rendered `<label>`; required for a11y                         |
+| `hint`                   | `string?`                            | helper text, linked via `aria-describedby`                    |
+| `error`                  | `string?`                            | error text; sets `aria-invalid`, links via `aria-describedby` |
+| `leftAddon`/`rightAddon` | `ReactNode?`                         | e.g. `£`, visibility toggle                                   |
+| `id`                     | auto-generated via `useId` if absent |                                                               |
+| `...rest`                | `InputHTMLAttributes`                |                                                               |
 
 States: default, focus, error, disabled. Password variant exposes a show/hide toggle button
 (`aria-pressed`, `aria-label`). Never rely on placeholder as label.
@@ -152,6 +152,7 @@ hover elevation + pointer; if interactive it MUST be a `button`/`a` or have appr
 Semantic `<table>` with `<caption>` (visually-hidden ok), `<thead>`, `scope="col"` headers,
 `<tbody>`. Props: `columns: Column<T>[]` (`{ header, accessor, sortable?, align?, cell? }`),
 `data: T[]`, `sort`, `onSortChange`, `getRowId`, `onRowClick?`, `isLoading`, `emptyState`.
+
 - Sortable headers render a `<button>` with `aria-sort` (`none|ascending|descending`).
 - Loading → renders Skeleton rows. Empty → renders `EmptyState`.
 - Row click MUST also be keyboard reachable (row action button or roving focus). Used in
@@ -160,6 +161,7 @@ Semantic `<table>` with `<caption>` (visually-hidden ok), `<thead>`, `scope="col
 ### 3.6 Modal (Dialog) — `DS-FR-15`
 
 Built on a focus-trap dialog (Radix Dialog or hand-rolled).
+
 - `role="dialog"` + `aria-modal="true"`, `aria-labelledby` (title) + `aria-describedby`.
 - **Focus trap**; focus moves to dialog on open, returns to trigger on close.
 - `Esc` closes; click on overlay closes (configurable); background `inert`/scroll-locked.

@@ -68,7 +68,9 @@ describe("LoginForm", () => {
     renderLogin();
     const password = screen.getByLabelText(/^password/i);
     expect(password).toHaveAttribute("type", "password");
-    await userEvent.click(screen.getByRole("button", { name: /show password/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /show password/i }),
+    );
     expect(password).toHaveAttribute("type", "text");
   });
 });

@@ -6,21 +6,21 @@
 
 ## 1. Technology stack
 
-| Concern | Choice | Rationale |
-|---------|--------|-----------|
-| UI library | **React 18** | Concurrent features, ecosystem, team familiarity. |
-| Language | **TypeScript** (`strict`) | Type safety end-to-end (`ARCH-NFR-03`). |
-| Build/dev | **Vite** | Fast HMR, native ESM, simple code-splitting. |
-| Routing | **React Router v6** (data router) | Nested layouts, lazy routes, loaders if needed. |
-| Server state | **TanStack Query v5** | Caching, dedupe, retry, background refetch — production-shaped async. |
-| Styling | **Tailwind CSS** | Token-driven utility styling, small CSS, fast iteration. |
-| Component variants | **class-variance-authority (CVA)** | Type-safe variant API for the design system. |
-| Forms | **React Hook Form** | Performant uncontrolled forms, minimal re-renders. |
-| Validation | **Zod** | Single schema → TS types + runtime validation at boundaries. |
-| Animation | **Framer Motion** | Declarative, accessible, `prefers-reduced-motion` aware. |
-| Testing | **Vitest + React Testing Library** | Vite-native, fast, user-centric assertions. |
-| Mock network (optional) | **MSW** | Intercept at network layer for realistic tests/dev. |
-| Component docs (optional) | **Storybook** | Isolated design-system development. |
+| Concern                   | Choice                             | Rationale                                                             |
+| ------------------------- | ---------------------------------- | --------------------------------------------------------------------- |
+| UI library                | **React 18**                       | Concurrent features, ecosystem, team familiarity.                     |
+| Language                  | **TypeScript** (`strict`)          | Type safety end-to-end (`ARCH-NFR-03`).                               |
+| Build/dev                 | **Vite**                           | Fast HMR, native ESM, simple code-splitting.                          |
+| Routing                   | **React Router v6** (data router)  | Nested layouts, lazy routes, loaders if needed.                       |
+| Server state              | **TanStack Query v5**              | Caching, dedupe, retry, background refetch — production-shaped async. |
+| Styling                   | **Tailwind CSS**                   | Token-driven utility styling, small CSS, fast iteration.              |
+| Component variants        | **class-variance-authority (CVA)** | Type-safe variant API for the design system.                          |
+| Forms                     | **React Hook Form**                | Performant uncontrolled forms, minimal re-renders.                    |
+| Validation                | **Zod**                            | Single schema → TS types + runtime validation at boundaries.          |
+| Animation                 | **Framer Motion**                  | Declarative, accessible, `prefers-reduced-motion` aware.              |
+| Testing                   | **Vitest + React Testing Library** | Vite-native, fast, user-centric assertions.                           |
+| Mock network (optional)   | **MSW**                            | Intercept at network layer for realistic tests/dev.                   |
+| Component docs (optional) | **Storybook**                      | Isolated design-system development.                                   |
 
 Utility libs: `clsx` + `tailwind-merge` (class composition), `date-fns` (date math, tree-shakeable).
 
@@ -81,14 +81,14 @@ src/
 
 These are enforced by convention (and `SHOULD` be enforced by ESLint `import/no-restricted-paths`):
 
-| Layer | May import from | MUST NOT import from |
-|-------|-----------------|----------------------|
-| `features/X` | `components/*`, `lib/*`, `hooks/*`, `services/*`, `types/*` | `features/Y` internals, `app/*` |
-| `components/ui` | `lib/utils`, `types` | any `feature`, any `service`, `app/*` |
-| `components/shared` | `components/ui`, `lib/*`, `types` | any `feature`, any `service` |
-| `services/*` | `lib/api`, `lib/auth`, `data/*`, `types` | any `feature`, any `component`, React |
-| `lib/*` | other `lib/*`, `types` | `features`, `components`, `services`, `app` |
-| `app/*` | everything (composition root) | — |
+| Layer               | May import from                                             | MUST NOT import from                        |
+| ------------------- | ----------------------------------------------------------- | ------------------------------------------- |
+| `features/X`        | `components/*`, `lib/*`, `hooks/*`, `services/*`, `types/*` | `features/Y` internals, `app/*`             |
+| `components/ui`     | `lib/utils`, `types`                                        | any `feature`, any `service`, `app/*`       |
+| `components/shared` | `components/ui`, `lib/*`, `types`                           | any `feature`, any `service`                |
+| `services/*`        | `lib/api`, `lib/auth`, `data/*`, `types`                    | any `feature`, any `component`, React       |
+| `lib/*`             | other `lib/*`, `types`                                      | `features`, `components`, `services`, `app` |
+| `app/*`             | everything (composition root)                               | —                                           |
 
 Cross-feature communication happens via shared services, the URL, or shared context — never
 by reaching into another feature's folder.
@@ -124,15 +124,16 @@ AppShell (protected — ProtectedRoute guard)
 
 ## 5. State management strategy (`ARCH-NFR-04`)
 
-| State kind | Owner | Examples |
-|------------|-------|----------|
-| **Server/async state** | TanStack Query | accounts, transactions, dashboard summary, current user. |
-| **Auth/session state** | `AuthProvider` (context) backed by LocalStorage + Query (`/auth/me`). | token, current user identity. |
-| **Form state** | React Hook Form (local to form). | login, register, profile edit. |
-| **Ephemeral UI state** | `useState`/`useReducer` local; context only if shared. | modal open, drawer open, selected row, search input (debounced). |
-| **URL state** | React Router search params. | filters, sort, page, search query on list pages. |
+| State kind             | Owner                                                                 | Examples                                                         |
+| ---------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Server/async state** | TanStack Query                                                        | accounts, transactions, dashboard summary, current user.         |
+| **Auth/session state** | `AuthProvider` (context) backed by LocalStorage + Query (`/auth/me`). | token, current user identity.                                    |
+| **Form state**         | React Hook Form (local to form).                                      | login, register, profile edit.                                   |
+| **Ephemeral UI state** | `useState`/`useReducer` local; context only if shared.                | modal open, drawer open, selected row, search input (debounced). |
+| **URL state**          | React Router search params.                                           | filters, sort, page, search query on list pages.                 |
 
 **Rules:**
+
 - Never copy server data into `useState`. Read it from the query cache.
 - List filters/sort/pagination live in the **URL** so views are shareable and back/forward works.
 - Global client state is avoided; if needed it is a small, typed context — no Redux.
@@ -143,11 +144,11 @@ AppShell (protected — ProtectedRoute guard)
 new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 30_000,            // 30s — money data is sensitive to staleness
+      staleTime: 30_000, // 30s — money data is sensitive to staleness
       gcTime: 5 * 60_000,
-      retry: 2,                     // ApiError 4xx → no retry (see lib/api)
+      retry: 2, // ApiError 4xx → no retry (see lib/api)
       refetchOnWindowFocus: true,
-      throwOnError: false,          // render error states, not the boundary, for data
+      throwOnError: false, // render error states, not the boundary, for data
     },
     mutations: { retry: 0 },
   },

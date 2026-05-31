@@ -84,7 +84,11 @@ export function getTransaction(id: string): Promise<Transaction> {
   return simulateNetwork(() => {
     const txn = transactions.find((t) => t.id === id);
     if (!txn) {
-      throw new ApiError(404, "TRANSACTION_NOT_FOUND", "Transaction not found.");
+      throw new ApiError(
+        404,
+        "TRANSACTION_NOT_FOUND",
+        "Transaction not found.",
+      );
     }
     return txn;
   });

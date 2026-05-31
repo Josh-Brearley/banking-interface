@@ -64,10 +64,7 @@ describe("AccountsPage", () => {
   it("searches by name and reflects it in the URL (ACCT-AC-03)", async () => {
     renderAccounts();
     await screen.findByText("Everyday Current");
-    await userEvent.type(
-      screen.getByLabelText(/search accounts/i),
-      "savings",
-    );
+    await userEvent.type(screen.getByLabelText(/search accounts/i), "savings");
     expect(await screen.findByText("Rainy Day Savings")).toBeInTheDocument();
     await waitFor(() =>
       expect(screen.queryByText("Everyday Current")).toBeNull(),
@@ -96,7 +93,9 @@ describe("AccountsPage", () => {
     );
     // Lowest balance (credit, -£452.30) sorts first ascending.
     let rows = screen.getAllByRole("row");
-    expect(within(rows[1]!).getByText("Eagle Platinum Credit")).toBeInTheDocument();
+    expect(
+      within(rows[1]!).getByText("Eagle Platinum Credit"),
+    ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: /balance/i }));
     await waitFor(() =>
@@ -116,6 +115,8 @@ describe("AccountsPage", () => {
     expect(await screen.findByRole("alert")).toBeInTheDocument();
     spy.mockResolvedValue([]);
     await userEvent.click(screen.getByRole("button", { name: /try again/i }));
-    await waitFor(() => expect(spy.mock.calls.length).toBeGreaterThanOrEqual(2));
+    await waitFor(() =>
+      expect(spy.mock.calls.length).toBeGreaterThanOrEqual(2),
+    );
   });
 });
