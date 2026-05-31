@@ -89,12 +89,22 @@ const config: Config = {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        "zoom-in": {
+          from: { opacity: "0", transform: "scale(0.97) translateY(8px)" },
+          to: { opacity: "1", transform: "scale(1) translateY(0)" },
+        },
+        "slide-in-right": {
+          from: { transform: "translateX(100%)" },
+          to: { transform: "translateX(0)" },
+        },
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
       },
       animation: {
         "fade-in": "fade-in 200ms ease-out",
+        "dialog-in": "zoom-in 200ms ease-out",
+        "drawer-in": "slide-in-right 240ms ease-out",
       },
     },
   },
