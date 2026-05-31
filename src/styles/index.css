@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Design tokens — specs/02-design-system.md.
+ * Colours are space-separated RGB channels so Tailwind's <alpha-value> works.
+ */
+@layer base {
+  :root {
+    --color-background: 251 251 253; /* #FBFBFD */
+    --color-surface: 255 255 255; /* #FFFFFF */
+    --color-surface-muted: 244 245 247; /* #F4F5F7 */
+    --color-border: 230 232 236; /* #E6E8EC */
+    --color-foreground: 11 13 18; /* #0B0D12 */
+    --color-foreground-muted: 91 100 114; /* #5B6472 */
+
+    --color-primary: 26 77 219; /* #1A4DDB */
+    --color-primary-foreground: 255 255 255;
+
+    --color-success: 14 138 82; /* #0E8A52 */
+    --color-success-subtle: 224 244 234;
+    --color-warning: 178 106 0; /* #B26A00 */
+    --color-warning-subtle: 250 240 224;
+    --color-danger: 198 35 48; /* #C62330 */
+    --color-danger-subtle: 250 228 230;
+    --color-info: 21 119 184; /* #1577B8 */
+    --color-info-subtle: 224 240 250;
+
+    --color-ring: 26 77 219;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: theme("fontFamily.sans");
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+  }
+
+  /* NFR-A11Y-03: always-visible keyboard focus. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Tabular figures for money. */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .skeleton-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.6),
+      transparent
+    );
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+/* NFR-A11Y-09 / NFR-MOTION-04: respect reduced motion globally. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
