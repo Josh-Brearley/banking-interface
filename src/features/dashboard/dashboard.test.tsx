@@ -37,7 +37,9 @@ describe("DashboardPage", () => {
       makeDashboardSummary(),
     );
     renderDashboard();
-    expect(await screen.findByText(/priya/i)).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: /josh/i }),
+    ).toBeInTheDocument();
   });
 
   it("shows the summary figures formatted as GBP (DASH-AC-02)", async () => {
@@ -114,6 +116,32 @@ describe("DashboardPage", () => {
     );
     expect(
       await screen.findByRole("heading", { name: /accounts home/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("opens a demo modal from the new-card action (DASH-AC-08)", async () => {
+    vi.spyOn(dashboardService, "getSummary").mockResolvedValue(
+      makeDashboardSummary(),
+    );
+    renderDashboard();
+    await userEvent.click(
+      await screen.findByRole("button", { name: /new card/i }),
+    );
+    expect(
+      await screen.findByText(/new card ordering is coming soon/i),
+    ).toBeInTheDocument();
+  });
+
+  it("offers a switch-to-business upsell (DASH-AC-09)", async () => {
+    vi.spyOn(dashboardService, "getSummary").mockResolvedValue(
+      makeDashboardSummary(),
+    );
+    renderDashboard();
+    await userEvent.click(
+      await screen.findByRole("button", { name: /try now/i }),
+    );
+    expect(
+      await screen.findByText(/business accounts are coming soon/i),
     ).toBeInTheDocument();
   });
 });
