@@ -1,9 +1,9 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/app/providers/AuthProvider";
-import { Spinner } from "@/components/ui";
+import { Spinner } from "@/components/atoms";
 
 /**
- * Guards authenticated routes — AUTH-FR-07/08. Unauthenticated users are sent to
+ * Guards authenticated routes, AUTH-FR-07/08. Unauthenticated users are sent to
  * /login with the intended path preserved in `?from=`.
  */
 export function ProtectedRoute() {

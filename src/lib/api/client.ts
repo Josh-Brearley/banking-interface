@@ -1,5 +1,5 @@
 /**
- * Mock network layer — specs/03-api-and-data.md §3.
+ * Mock network layer, specs/03-api-and-data.md §3.
  * Simulates latency and failures so the UI exercises real loading/error paths.
  * No real backend exists.
  */
@@ -16,7 +16,7 @@ export class ApiError extends Error {
   }
 }
 
-/** True for client errors (4xx) — React Query should not retry these. */
+/** True for client errors (4xx), React Query should not retry these. */
 export function isClientError(error: unknown): error is ApiError {
   return error instanceof ApiError && error.status >= 400 && error.status < 500;
 }

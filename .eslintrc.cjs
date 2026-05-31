@@ -12,12 +12,19 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
   ],
-  ignorePatterns: ["dist", "coverage", "node_modules", "*.config.*", "scripts"],
+  ignorePatterns: [
+    "dist",
+    "coverage",
+    "node_modules",
+    "storybook-static",
+    "*.config.*",
+    "scripts",
+  ],
   overrides: [
     {
       // Design-system primitives intentionally co-export CVA variant helpers
       // and are generic element wrappers whose content is supplied by consumers.
-      files: ["src/components/ui/**/*.tsx"],
+      files: ["src/components/atoms/**/*.tsx"],
       rules: {
         "react-refresh/only-export-components": "off",
         "jsx-a11y/heading-has-content": "off",

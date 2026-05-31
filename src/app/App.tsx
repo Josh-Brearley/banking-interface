@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
 import { AppProviders } from "@/app/providers/AppProviders";
-import { Spinner } from "@/components/ui";
+import { Spinner } from "@/components/atoms";
 import { router } from "@/app/router/router";
 
 export function App() {

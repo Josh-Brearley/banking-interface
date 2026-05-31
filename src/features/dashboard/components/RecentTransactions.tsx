@@ -1,21 +1,14 @@
 import { Link } from "react-router-dom";
 import {
-  Badge,
+  Avatar,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  type BadgeProps,
-} from "@/components/ui";
-import { MoneyAmount } from "@/components/shared/MoneyAmount";
+} from "@/components/atoms";
+import { MoneyAmount } from "@/components/molecules/MoneyAmount";
 import { formatDate } from "@/lib/utils";
 import type { Transaction, TransactionType } from "@/types";
-
-const typeVariant: Record<TransactionType, BadgeProps["variant"]> = {
-  deposit: "success",
-  withdrawal: "neutral",
-  transfer: "info",
-};
 
 const typeLabel: Record<TransactionType, string> = {
   deposit: "Deposit",
@@ -23,7 +16,7 @@ const typeLabel: Record<TransactionType, string> = {
   transfer: "Transfer",
 };
 
-/** Latest activity list — responsive rows, links through to full history. */
+/** Latest activity list, avatar-led rows, links through to full history. */
 export function RecentTransactions({
   transactions,
 }: {
@@ -45,21 +38,20 @@ export function RecentTransactions({
           {transactions.map((txn) => {
             const displayMinor =
               txn.direction === "debit" ? -txn.amountMinor : txn.amountMinor;
+            const partyName = txn.counterparty ?? txn.description;
             return (
               <li
                 key={txn.id}
                 className="flex items-center justify-between gap-3 py-3"
               >
                 <div className="flex min-w-0 items-center gap-3">
-                  <Badge variant={typeVariant[txn.type]} withDot>
-                    {typeLabel[txn.type]}
-                  </Badge>
+                  <Avatar name={partyName} size="md" />
                   <div className="min-w-0">
                     <p className="truncate text-body font-medium">
                       {txn.description}
                     </p>
                     <p className="text-caption text-foreground-muted">
-                      {formatDate(txn.createdAt)}
+                      {typeLabel[txn.type]} · {formatDate(txn.createdAt)}
                     </p>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
-import { Badge, Drawer } from "@/components/ui";
-import { MoneyAmount } from "@/components/shared/MoneyAmount";
-import { TransactionTypeBadge } from "@/components/shared/TransactionTypeBadge";
+import { Badge, Drawer } from "@/components/atoms";
+import { MoneyAmount } from "@/components/molecules/MoneyAmount";
+import { TransactionTypeBadge } from "@/components/molecules/TransactionTypeBadge";
 import { formatDate, signedMinor } from "@/lib/utils";
 import type { Transaction, TransactionStatus } from "@/types";
 

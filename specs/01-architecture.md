@@ -1,4 +1,4 @@
-# 01 — Architecture
+# 01: Architecture
 
 > Status: Approved · Inherits: [00-product-constitution](./00-product-constitution.md)
 
@@ -12,7 +12,7 @@
 | Language                  | **TypeScript** (`strict`)          | Type safety end-to-end (`ARCH-NFR-03`).                               |
 | Build/dev                 | **Vite**                           | Fast HMR, native ESM, simple code-splitting.                          |
 | Routing                   | **React Router v6** (data router)  | Nested layouts, lazy routes, loaders if needed.                       |
-| Server state              | **TanStack Query v5**              | Caching, dedupe, retry, background refetch — production-shaped async. |
+| Server state              | **TanStack Query v5**              | Caching, dedupe, retry, background refetch, production-shaped async. |
 | Styling                   | **Tailwind CSS**                   | Token-driven utility styling, small CSS, fast iteration.              |
 | Component variants        | **class-variance-authority (CVA)** | Type-safe variant API for the design system.                          |
 | Forms                     | **React Hook Form**                | Performant uncontrolled forms, minimal re-renders.                    |
@@ -41,15 +41,16 @@ src/
 │   │   ├── hooks/       # useLogin, useRegister, useLogout
 │   │   ├── pages/       # LoginPage, RegisterPage
 │   │   ├── schemas/     # zod schemas for this feature
-│   │   └── index.ts     # public surface (barrel) — the ONLY import entry
+│   │   └── index.ts     # public surface (barrel), the ONLY import entry
 │   ├── dashboard/
 │   ├── accounts/
 │   ├── transactions/
 │   └── profile/
 │
-├── components/
-│   ├── ui/              # design system primitives (Button, Input, …)
-│   └── shared/          # composed app widgets (PageHeader, StatCard, DataTable…)
+├── components/          # design system, organised by Atomic Design altitude
+│   ├── atoms/           # indivisible primitives (Button, Input, Badge, Avatar, …)
+│   ├── molecules/       # small composites of atoms (StatCard, MoneyAmount, Pagination…)
+│   └── organisms/       # complex standalone sections (DataTable, ErrorBoundary)
 │
 ├── lib/
 │   ├── api/             # http client shim, latency/error simulation, ApiError
@@ -68,10 +69,19 @@ src/
 ### Folder responsibilities
 
 - **`features/*`** own pages, feature components, feature hooks, and feature schemas. They
-  consume design-system primitives and services. They expose a **barrel `index.ts`** —
+  consume design-system primitives and services. They expose a **barrel `index.ts`**,
   the only thing other modules may import.
-- **`components/ui`** is the design system (`02-design-system`). Zero feature knowledge.
-- **`components/shared`** are reusable, feature-agnostic compositions of `ui` primitives.
+- **`components/atoms`** are the design-system primitives (`02-design-system`). Zero feature
+  knowledge; depend on nothing but `lib/utils` and `types`.
+- **`components/molecules`** are small, feature-agnostic composites of atoms (e.g. `StatCard`,
+  `MoneyAmount`, `Pagination`, `TransactionTypeBadge`).
+- **`components/organisms`** are complex, standalone, feature-agnostic sections (e.g.
+  `DataTable`, `ErrorBoundary`), they may compose atoms and molecules.
+
+  Altitude rule of thumb: atoms compose nothing; molecules compose atoms; organisms compose
+  atoms and molecules. Imports only ever flow **down** the ladder, never up or sideways into a
+  feature. Feature-specific organisms (e.g. Dashboard's `RightRail`) stay colocated inside the
+  feature, only feature-agnostic pieces live under `components/`.
 - **`services/*`** are the mock API. Pure async functions returning typed domain data.
 - **`lib/*`** is framework-agnostic plumbing. No JSX in `lib/api`, `lib/auth`, `lib/utils`.
 
@@ -83,14 +93,15 @@ These are enforced by convention (and `SHOULD` be enforced by ESLint `import/no-
 
 | Layer               | May import from                                             | MUST NOT import from                        |
 | ------------------- | ----------------------------------------------------------- | ------------------------------------------- |
-| `features/X`        | `components/*`, `lib/*`, `hooks/*`, `services/*`, `types/*` | `features/Y` internals, `app/*`             |
-| `components/ui`     | `lib/utils`, `types`                                        | any `feature`, any `service`, `app/*`       |
-| `components/shared` | `components/ui`, `lib/*`, `types`                           | any `feature`, any `service`                |
+| `features/X`           | `components/*`, `lib/*`, `hooks/*`, `services/*`, `types/*` | `features/Y` internals, `app/*`             |
+| `components/atoms`     | `lib/utils`, `types`                                        | any `feature`, any `service`, `app/*`, molecules/organisms |
+| `components/molecules` | `components/atoms`, `lib/*`, `types`                        | any `feature`, any `service`, organisms     |
+| `components/organisms` | `components/atoms`, `components/molecules`, `lib/*`, `types` | any `feature`, any `service`               |
 | `services/*`        | `lib/api`, `lib/auth`, `data/*`, `types`                    | any `feature`, any `component`, React       |
 | `lib/*`             | other `lib/*`, `types`                                      | `features`, `components`, `services`, `app` |
 | `app/*`             | everything (composition root)                               | —                                           |
 
-Cross-feature communication happens via shared services, the URL, or shared context — never
+Cross-feature communication happens via shared services, the URL, or shared context, never
 by reaching into another feature's folder.
 
 ---
@@ -105,7 +116,7 @@ route is its own chunk.
 AuthLayout (public)
   /login                → LoginPage           [lazy]
   /register             → RegisterPage        [lazy]
-AppShell (protected — ProtectedRoute guard)
+AppShell (protected, ProtectedRoute guard)
   /dashboard            → DashboardPage        [lazy]
   /accounts             → AccountsPage         [lazy]
   /transactions         → TransactionsPage     [lazy]
@@ -136,7 +147,7 @@ AppShell (protected — ProtectedRoute guard)
 
 - Never copy server data into `useState`. Read it from the query cache.
 - List filters/sort/pagination live in the **URL** so views are shareable and back/forward works.
-- Global client state is avoided; if needed it is a small, typed context — no Redux.
+- Global client state is avoided; if needed it is a small, typed context, no Redux.
 
 ### React Query configuration baseline
 
@@ -144,7 +155,7 @@ AppShell (protected — ProtectedRoute guard)
 new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 30_000, // 30s — money data is sensitive to staleness
+      staleTime: 30_000, // 30s, money data is sensitive to staleness
       gcTime: 5 * 60_000,
       retry: 2, // ApiError 4xx → no retry (see lib/api)
       refetchOnWindowFocus: true,

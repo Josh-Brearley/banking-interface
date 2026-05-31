@@ -36,7 +36,7 @@ function withinRange(txn: Transaction, from?: string, to?: string): boolean {
   return true;
 }
 
-/** GET /api/transactions — paginated. specs/03-api-and-data.md §4.4. */
+/** GET /api/transactions, paginated. specs/03-api-and-data.md §4.4. */
 export function listTransactions(
   query: TransactionQuery = {},
 ): Promise<Paginated<Transaction>> {

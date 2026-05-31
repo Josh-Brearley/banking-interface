@@ -35,7 +35,7 @@ function compare(a: Account, b: Account, sort: AccountQuery["sort"]): number {
   }
 }
 
-/** GET /api/accounts — specs/03-api-and-data.md §4.3. */
+/** GET /api/accounts, specs/03-api-and-data.md §4.3. */
 export function listAccounts(query: AccountQuery = {}): Promise<Account[]> {
   return simulateNetwork(() => {
     const filtered = accounts.filter((a) =>

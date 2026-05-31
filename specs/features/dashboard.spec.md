@@ -1,4 +1,4 @@
-# Feature Spec — Dashboard
+# Feature Spec: Dashboard
 
 > Status: Approved · Feature ID: `DASH` · Owner: Money squad
 > Inherits: [00](../00-product-constitution.md) · [03](../03-api-and-data.md) · [05](../05-cross-cutting.md)
@@ -49,7 +49,7 @@ headline balance, monthly in/out, recent activity, and quick actions. Backed by
 
 | Action            | Behaviour                                                                                                      |
 | ----------------- | -------------------------------------------------------------------------------------------------------------- |
-| Transfer Money    | Opens a Transfer modal/route (UI only — no real movement, see [00 §5](../00-product-constitution.md#5-scope)). |
+| Transfer Money    | Opens a Transfer modal/route (UI only, no real movement, see [00 §5](../00-product-constitution.md#5-scope)). |
 | View Accounts     | Navigate `/accounts`.                                                                                          |
 | View Transactions | Navigate `/transactions`.                                                                                      |
 | Manage Profile    | Navigate `/profile`.                                                                                           |
@@ -58,7 +58,7 @@ headline balance, monthly in/out, recent activity, and quick actions. Backed by
 
 `useDashboardSummary` returns `DashboardSummary`. Amounts are minor units → `MoneyAmount`.
 Deposits shown positive/success; withdrawals shown with `−` sign/danger colour (paired with
-sign, not colour alone — `NFR-A11Y-07`).
+sign, not colour alone, `NFR-A11Y-07`).
 
 ## 5. Acceptance criteria
 

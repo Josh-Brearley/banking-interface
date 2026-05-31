@@ -33,7 +33,7 @@ export function updateProfile(body: UpdateProfileBody): Promise<User> {
   });
 }
 
-/** Frontend-only avatar — returns a preview URL, not persisted server-side. */
+/** Frontend-only avatar, returns a preview URL, not persisted server-side. */
 export function setAvatar(file: File): Promise<{ avatarUrl: string }> {
   return simulateNetwork(() => ({ avatarUrl: URL.createObjectURL(file) }), {
     min: 100,

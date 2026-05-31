@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { isClientError } from "@/lib/api/client";
 
 /**
- * Shared QueryClient — specs/01-architecture.md §5.
+ * Shared QueryClient, specs/01-architecture.md §5.
  * 4xx ApiErrors are not retried; transient/5xx errors retry up to twice.
  */
 export function createQueryClient(): QueryClient {

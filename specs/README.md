@@ -1,4 +1,4 @@
-# Eagle Bank — Specifications
+# Eagle Bank: Specifications
 
 This directory is the **single source of truth** for what Eagle Bank does and how it is
 built. We practise **spec-driven development (SDD)**: every feature is specified here
@@ -43,17 +43,17 @@ Every requirement has a stable ID so code, tests, and PRs can reference it:
 <FEATURE>-<TYPE>-<NUMBER>
 ```
 
-- `FEATURE` — `AUTH`, `DASH`, `ACCT`, `TXN`, `PROF`, `DS` (design system), `ARCH`, `NFR`.
-- `TYPE` — `FR` (functional requirement), `AC` (acceptance criterion), `NFR` (non-functional).
+- `FEATURE`, `AUTH`, `DASH`, `ACCT`, `TXN`, `PROF`, `DS` (design system), `ARCH`, `NFR`.
+- `TYPE`, `FR` (functional requirement), `AC` (acceptance criterion), `NFR` (non-functional).
 - Example: `AUTH-FR-03`, `TXN-AC-07`, `NFR-A11Y-02`.
 
 Reference them in code comments and commit messages, e.g. `// AUTH-FR-03: lock form during submit`.
 
 ### Requirement language (RFC 2119)
 
-- **MUST** / **MUST NOT** — mandatory.
-- **SHOULD** — strong recommendation; deviations require justification in the PR.
-- **MAY** — optional.
+- **MUST** / **MUST NOT**: mandatory.
+- **SHOULD**: strong recommendation; deviations require justification in the PR.
+- **MAY**: optional.
 
 ### Acceptance criteria
 

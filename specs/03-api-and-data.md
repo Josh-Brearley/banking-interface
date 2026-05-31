@@ -1,4 +1,4 @@
-# 03 — API & Data Contract
+# 03: API & Data Contract
 
 > Status: Approved · Inherits: [00](./00-product-constitution.md), [01](./01-architecture.md)
 > Location: `src/types/`, `src/services/`, `src/lib/api/`, `src/data/`
@@ -70,7 +70,7 @@ export interface Transaction {
   category?: string; // "Groceries", "Income"…
   counterparty?: string; // for transfers
   reference?: string;
-  createdAt: string; // ISO 8601 — used for date sort/filter
+  createdAt: string; // ISO 8601, used for date sort/filter
 }
 
 // auth.ts
@@ -84,9 +84,9 @@ export interface Session {
 
 ## 2. Mock data (`src/data/`)
 
-- `users.json` — ≥1 seeded user (demo credentials below) with full profile.
-- `accounts.json` — ≥3 accounts across types (savings, credit, current) and varied statuses.
-- `transactions.json` — ≥60 transactions spanning ≥3 months, mixed types/directions/categories,
+- `users.json`, ≥1 seeded user (demo credentials below) with full profile.
+- `accounts.json`, ≥3 accounts across types (savings, credit, current) and varied statuses.
+- `transactions.json`, ≥60 transactions spanning ≥3 months, mixed types/directions/categories,
   enough to exercise pagination, date-range filtering, and empty-search results.
 
 **Demo credentials** (documented in README):
@@ -101,11 +101,11 @@ accounts, a few `pending`/`failed` examples for state coverage.
 
 Each service is a set of async functions that **simulate** a backend. They MUST:
 
-1. **Simulate latency** — random delay (e.g. 250–800ms) via `lib/api`.
-2. **Simulate errors** — configurable failure rate / forced error hooks so error states are
+1. **Simulate latency**: random delay (e.g. 250–800ms) via `lib/api`.
+2. **Simulate errors**: configurable failure rate / forced error hooks so error states are
    demoable and testable. Network errors throw `ApiError`.
-3. **Return typed domain data** — never leak raw JSON shapes; map to `types/`.
-4. **Be pure of React** — no hooks; consumed by React Query hooks in features.
+3. **Return typed domain data**: never leak raw JSON shapes; map to `types/`.
+4. **Be pure of React**: no hooks; consumed by React Query hooks in features.
 
 ```ts
 // lib/api/client.ts (shim)
@@ -132,7 +132,7 @@ export class ApiError extends Error {
 All paths are conceptual (no real server). Request/response shapes are the function
 signatures of the services. Errors use the `ApiError` model (§3).
 
-### 4.1 Auth — `auth.service.ts`
+### 4.1 Auth: `auth.service.ts`
 
 | Endpoint                  | Fn               | Request                         | Success             | Errors                                |
 | ------------------------- | ---------------- | ------------------------------- | ------------------- | ------------------------------------- |
@@ -148,7 +148,7 @@ signatures of the services. Errors use the `ApiError` model (§3).
 { "status":401, "code":"INVALID_CREDENTIALS", "message":"Email or password is incorrect." }
 ```
 
-### 4.2 Dashboard — `dashboard.service.ts`
+### 4.2 Dashboard: `dashboard.service.ts`
 
 | Endpoint                     | Fn             | Returns            |
 | ---------------------------- | -------------- | ------------------ |
@@ -165,7 +165,7 @@ interface DashboardSummary {
 }
 ```
 
-### 4.3 Accounts — `accounts.service.ts`
+### 4.3 Accounts: `accounts.service.ts`
 
 | Endpoint                | Fn                    | Request                    | Returns           |
 | ----------------------- | --------------------- | -------------------------- | ----------------- |
@@ -176,7 +176,7 @@ interface DashboardSummary {
 masked number. Filtering/sorting MAY be client-side but the service signature models the
 server-side contract for future real APIs.
 
-### 4.4 Transactions — `transactions.service.ts`
+### 4.4 Transactions: `transactions.service.ts`
 
 | Endpoint                    | Fn                        | Request   | Returns                  |
 | --------------------------- | ------------------------- | --------- | ------------------------ |
@@ -204,7 +204,7 @@ interface Paginated<T> {
 }
 ```
 
-### 4.5 Profile — `profile.service.ts`
+### 4.5 Profile: `profile.service.ts`
 
 | Endpoint               | Fn                    | Request                                                             | Returns                      |
 | ---------------------- | --------------------- | ------------------------------------------------------------------- | ---------------------------- | ------------------ |

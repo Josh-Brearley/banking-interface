@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { PageHeader } from "@/components/shared/PageHeader";
-import { DataTable } from "@/components/shared/DataTable";
-import { MoneyAmount } from "@/components/shared/MoneyAmount";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { PageHeader } from "@/components/molecules/PageHeader";
+import { DataTable } from "@/components/organisms/DataTable";
+import { MoneyAmount } from "@/components/molecules/MoneyAmount";
 import {
   EmptyState,
   Input,
   type Column,
   type SortState,
-} from "@/components/ui";
+} from "@/components/atoms";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { maskAccountNumber } from "@/lib/utils";
 import type { Account } from "@/types";
@@ -51,6 +52,7 @@ const columns: Column<Account>[] = [
 ];
 
 export function AccountsPage() {
+  useDocumentTitle("Accounts");
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") ?? "";
   const sortId = searchParams.get("sort") ?? undefined;

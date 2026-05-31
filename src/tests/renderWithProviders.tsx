@@ -16,7 +16,7 @@ const routerFuture = {
 } as const;
 
 /**
- * Render a component inside the app's providers — specs/04-testing-strategy.md §2.
+ * Render a component inside the app's providers, specs/04-testing-strategy.md §2.
  * Uses a fresh QueryClient with retries disabled for deterministic tests.
  */
 export function renderWithProviders(

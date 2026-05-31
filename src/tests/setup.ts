@@ -1,11 +1,13 @@
 import "@testing-library/jest-dom/vitest";
 import { afterEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
+import { _userStore } from "@/services/auth.service";
 
-// RTL cleanup + isolated session/mocks per test (specs/04-testing-strategy.md §2).
+// RTL cleanup + isolated session/store/mocks per test (specs/04-testing-strategy.md §2).
 afterEach(() => {
   cleanup();
   localStorage.clear();
+  _userStore.reset(); // undo any in-memory profile mutations from the mock backend
   vi.restoreAllMocks();
 });
 

@@ -90,7 +90,7 @@ describe("TransactionsPage", () => {
     expect(await screen.findByText("Salary - Acme Ltd")).toBeInTheDocument();
   });
 
-  it("sorts by date ascending — oldest first (TXN-AC-05)", async () => {
+  it("sorts by date ascending, oldest first (TXN-AC-05)", async () => {
     renderTransactions();
     await screen.findByText("Salary - Acme Ltd");
     await userEvent.click(screen.getByRole("button", { name: /date/i }));
@@ -102,7 +102,7 @@ describe("TransactionsPage", () => {
     expect(within(firstDataRow()).getByText("Boots")).toBeInTheDocument();
   });
 
-  it("sorts by amount descending — largest first (TXN-AC-06)", async () => {
+  it("sorts by amount descending, largest first (TXN-AC-06)", async () => {
     renderTransactions();
     await screen.findByText("Salary - Acme Ltd");
     const amountHeaderBtn = screen.getByRole("button", { name: /amount/i });
