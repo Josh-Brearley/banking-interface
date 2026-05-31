@@ -25,7 +25,7 @@ an **avatar (frontend-only)**. Validation via React Hook Form + Zod. Backed by
 | `PROF-FR-05` | On success, **invalidate** `profile.me()` and `auth.me()` so the rest of the app (e.g. dashboard greeting) updates (`03 §6`). |
 | `PROF-FR-06` | **422 field errors** map back onto the corresponding inputs (`NFR-ERR-04`). |
 | `PROF-FR-07` | **Avatar upload** (frontend only): file picker, client-side type/size validation, preview via object/data URL; not persisted to a server. |
-| `PROF-FR-08` | **Dirty/Cancel**: editing can be cancelled, reverting to the last saved values; save disabled until the form is dirty & valid. |
+| `PROF-FR-08` | **Dirty/Cancel**: editing can be cancelled, reverting to the last saved values. Save is disabled until the form is **dirty**. Validity is enforced at submit time (invalid submit is blocked, shows errors, and focuses the first invalid field) rather than by hard-disabling the button — disabling submit-on-invalid is an a11y anti-pattern and conflicts with `PROF-AC-02`. |
 | `PROF-FR-09` | Loading (initial fetch) → skeleton; Error → ErrorState + retry. |
 | `PROF-FR-10` | Fully accessible form (labels, `aria-invalid`, `aria-describedby`, focus to first error on submit). |
 
@@ -114,7 +114,8 @@ When I cancel
 Then the form reverts to the last saved values
 
 # PROF-AC-09  Save gating
-Then Save is disabled until the form is both dirty and valid
+Then Save is disabled until the form is dirty
+And an invalid submit is blocked with errors shown and focus moved to the first invalid field (see PROF-AC-02)
 
 # PROF-AC-10  Loading / Error
 Given the profile request is pending

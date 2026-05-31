@@ -9,6 +9,12 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+// jsdom doesn't implement object URLs; used by avatar preview.
+if (!URL.createObjectURL) {
+  URL.createObjectURL = () => "blob:mock-object-url";
+  URL.revokeObjectURL = () => {};
+}
+
 // jsdom doesn't implement matchMedia; provide a no-op for useMediaQuery etc.
 if (!window.matchMedia) {
   window.matchMedia = ((query: string) => ({
