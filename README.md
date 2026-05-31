@@ -1,5 +1,7 @@
 # Eagle Bank
 
+[![CI](https://github.com/Josh-Brearley/banking-interface/actions/workflows/ci.yml/badge.svg)](https://github.com/Josh-Brearley/banking-interface/actions/workflows/ci.yml)
+
 A modern, production-shaped retail banking frontend — built with React, TypeScript and Vite.
 The backend is **mocked** with local JSON and a typed service layer; no real backend is
 required, but the frontend is written as though one exists (service boundaries, latency,
