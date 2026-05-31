@@ -70,6 +70,15 @@ test(transactions): cover date-range filtering (TXN-AC-03)
 
 ---
 
+## 2a. Test-driven development
+
+We work **test-first** (spec-AC-driven TDD): turn each acceptance criterion into a failing
+test, implement to green, then refactor. The full loop and examples live in
+[`CLAUDE.md`](./CLAUDE.md#tdd-workflow). A requirement is not Done until its `AC` has a
+passing test.
+
+---
+
 ## 3. Definition of Done
 
 A branch is mergeable only when its spec's **Definition of Done**
