@@ -152,7 +152,7 @@ signatures of the services. Errors use the `ApiError` model (§3).
 
 | Endpoint                     | Fn             | Returns            |
 | ---------------------------- | -------------- | ------------------ |
-| `GET /api/dashboard/summary` | `getSummary()` | `DashboardSummary` |
+| `GET /api/dashboard` | `getSummary()` | `DashboardSummary` |
 
 ```ts
 interface DashboardSummary {
@@ -209,7 +209,7 @@ interface Paginated<T> {
 | Endpoint               | Fn                    | Request                                                             | Returns                      |
 | ---------------------- | --------------------- | ------------------------------------------------------------------- | ---------------------------- | ------------------ |
 | `GET /api/profile`     | `getProfile()`        | —                                                                   | `User`                       |
-| `PATCH /api/profile`   | `updateProfile(body)` | `Partial<Pick<User,"fullName"\|"email"\|"phoneNumber"\|"address">>` | `User`                       | `422` field errors |
+| `PUT /api/profile`   | `updateProfile(body)` | `Partial<Pick<User,"fullName"\|"email"\|"phoneNumber"\|"address">>` | `User`                       | `422` field errors |
 | (frontend-only) avatar | `setAvatar(file)`     | `File`                                                              | `{ avatarUrl }` (object URL) |
 
 ---

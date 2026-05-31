@@ -14,7 +14,7 @@ function isSameMonth(iso: string, ref: Date): boolean {
   );
 }
 
-/** GET /api/dashboard/summary, specs/03-api-and-data.md §4.2. */
+/** GET /api/dashboard, specs/03-api-and-data.md §4.2. */
 export function getSummary(): Promise<DashboardSummary> {
   return simulateNetwork(() => {
     const now = new Date();
