@@ -1,0 +1,47 @@
+# Netlify deployment config for the Eagle Bank Vite SPA.
+# Build, SPA routing fallback, and the header-only security controls that a
+# <meta> CSP cannot express (specs/05-cross-cutting.md §7.1).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Client-side routing: serve index.html for any path the SPA owns so a deep
+# link / refresh (e.g. /transactions) doesn't 404. Real assets are matched
+# first by the static file server; this is the catch-all fallback.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers. The fetch directives (script-src 'self', etc.) ship in the
+# build-time <meta> CSP from src/lib/security/csp.ts. These are the directives a
+# <meta> tag ignores and that must come from real response headers.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # frame-ancestors is header-only; deny all framing (clickjacking, NFR-SEC).
+    Content-Security-Policy = "frame-ancestors 'none'"
+    X-Frame-Options = "DENY"
+    # Force HTTPS for two years, including subdomains (HSTS, header-only).
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    # Block MIME-type sniffing (header-only).
+    X-Content-Type-Options = "nosniff"
+    # Privacy + hardening best practices.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Hashed, content-addressed build assets are safe to cache forever.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Never cache the HTML entry point, so new deploys are picked up immediately.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
