@@ -12,7 +12,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
   ],
-  ignorePatterns: ["dist", "coverage", "node_modules", "*.config.*"],
+  ignorePatterns: ["dist", "coverage", "node_modules", "*.config.*", "scripts"],
   overrides: [
     {
       // Design-system primitives intentionally co-export CVA variant helpers
