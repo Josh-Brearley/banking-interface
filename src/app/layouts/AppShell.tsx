@@ -32,12 +32,11 @@ export function AppShell() {
       </a>
 
       <header className="flex items-center justify-between border-b border-border bg-surface px-4 py-3 md:flex-col md:items-stretch md:justify-start md:gap-6 md:border-b-0 md:border-r md:py-6">
-        <div className="flex items-center">
+        <div className="flex items-center md:justify-center">
           <BrandLogo
-            variant="full"
-            className="hidden h-9 md:block"
+            variant="icon"
+            className="h-12 w-12 md:h-16 md:w-16"
           />
-          <BrandLogo variant="icon" className="h-8 w-8 md:hidden" />
         </div>
 
         <nav aria-label="Primary" className="hidden md:block">

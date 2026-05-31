@@ -24,7 +24,7 @@ export function AuthLayout() {
     <main className="flex min-h-screen items-center justify-center bg-surface-muted px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 flex justify-center">
-          <BrandLogo variant="full" className="h-12" />
+          <BrandLogo variant="full" className="h-20 sm:h-24" />
         </div>
         <Outlet />
       </div>
