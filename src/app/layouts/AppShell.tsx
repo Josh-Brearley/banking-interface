@@ -35,7 +35,7 @@ export function AppShell() {
         <div className="flex items-center md:justify-center">
           <BrandLogo
             variant="icon"
-            className="h-12 w-12 md:h-16 md:w-16"
+            className="h-14 w-14 md:h-20 md:w-20"
           />
         </div>
 
