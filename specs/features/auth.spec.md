@@ -1,4 +1,4 @@
-# Feature Spec — Authentication
+# Feature Spec: Authentication
 
 > Status: Approved · Feature ID: `AUTH` · Owner: Auth squad
 > Inherits: [00](../00-product-constitution.md) · [01](../01-architecture.md) · [03](../03-api-and-data.md) · [05](../05-cross-cutting.md)
@@ -6,7 +6,7 @@
 ## 1. Overview
 
 Mocked authentication: register, log in, persist a session in LocalStorage, guard protected
-routes, and log out. No real backend — `auth.service.ts` simulates the endpoints in
+routes, and log out. No real backend, `auth.service.ts` simulates the endpoints in
 [03 §4.1](../03-api-and-data.md#41-auth--authservicets).
 
 ## 2. User stories
@@ -38,7 +38,9 @@ routes, and log out. No real backend — `auth.service.ts` simulates the endpoin
 
 ### 4.1 Routes & layout
 
-- `/login`, `/register` render inside **`AuthLayout`** (centered card, brand, no app nav).
+- `/login`, `/register` render inside **`AuthLayout`**: a two-column banking
+  sign-in (immersive brand panel from `lg`, beside the auth-form card; brand mark
+  only on smaller viewports), no app nav.
 - `AuthLayout` performs the `AUTH-FR-09` redirect.
 - `ProtectedRoute` wraps `AppShell` (`AUTH-FR-07`).
 

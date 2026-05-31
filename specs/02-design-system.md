@@ -1,4 +1,4 @@
-# 02 — Design System
+# 02: Design System
 
 > Status: Approved · Inherits: [00](./00-product-constitution.md), [01](./01-architecture.md)
 > Location: `src/components/ui/`
@@ -14,7 +14,7 @@ professional, trustworthy, minimal (Monzo / Chase UK / modern Barclays). All var
 Tokens are the contract. Components reference tokens, never raw hex/px. Implemented as CSS
 variables + Tailwind theme extension so theming (incl. future dark mode) is a token swap.
 
-### 1.1 Colour — semantic system (`DS-FR-01`)
+### 1.1 Colour: semantic system (`DS-FR-01`)
 
 Define a primitive palette, then map **semantic** tokens. Components use semantic tokens only.
 
@@ -26,16 +26,16 @@ Define a primitive palette, then map **semantic** tokens. Components use semanti
 | `--color-border`               | `#E6E8EC`         | Hairline borders, dividers.                                                                              |
 | `--color-foreground`           | `#0B0D12`         | Primary text.                                                                                            |
 | `--color-foreground-muted`     | `#5B6472`         | Secondary text, captions.                                                                                |
-| `--color-primary`              | `#0B2A5B`         | Brand **navy** — primary buttons, links, active states, focus. From the logo.                            |
+| `--color-primary`              | `#0B2A5B`         | Brand **navy**: primary buttons, links, active states, focus. From the logo.                            |
 | `--color-primary-foreground`   | `#FFFFFF`         | Text on primary.                                                                                         |
-| `--color-secondary`            | `#18A8E0`         | Brand **cyan** accent — active indicators, highlights, decorative fills. From the logo.                  |
-| `--color-secondary-foreground` | `#FFFFFF`         | Text on cyan (large/decorative only — cyan fails AA for small text, so it is not used as a text colour). |
+| `--color-secondary`            | `#18A8E0`         | Brand **cyan** accent, active indicators, highlights, decorative fills. From the logo.                  |
+| `--color-secondary-foreground` | `#FFFFFF`         | Text on cyan (large/decorative only, cyan fails AA for small text, so it is not used as a text colour). |
 | `--color-secondary-subtle`     | `#E0F4FC`         | Light cyan background for accents/badges (pair with navy text).                                          |
 | `--color-success`              | `#0E8A52`         | Deposits/credits, positive.                                                                              |
 | `--color-warning`              | `#B26A00`         | Pending, attention.                                                                                      |
 | `--color-danger`               | `#C62330`         | Withdrawals/errors, destructive.                                                                         |
 | `--color-info`                 | `#1577B8`         | Informational.                                                                                           |
-| `--color-ring`                 | `#0B2A5B`         | Focus ring (navy — high contrast on the light canvas).                                                   |
+| `--color-ring`                 | `#0B2A5B`         | Focus ring (navy, high contrast on the light canvas).                                                   |
 
 Status colours have a `-subtle` background pair (e.g. `--color-success-subtle`) for badges; the
 brand cyan has `--color-secondary-subtle`.
@@ -98,7 +98,7 @@ Money values use `font-variant-numeric: tabular-nums`.
 Each component lists: variants (CVA), props, behaviour, a11y. All accept `className`
 (merged via `cn()`) and forward refs.
 
-### 3.1 Button — `DS-FR-10`
+### 3.1 Button: `DS-FR-10`
 
 ```ts
 // cva
@@ -120,7 +120,7 @@ fullWidth: boolean;
 **Behaviour:** when `isLoading`, content stays for width stability, spinner overlays,
 `disabled` + `aria-busy="true"`. **A11y:** icon-only buttons MUST have `aria-label`.
 
-### 3.2 Input — `DS-FR-11`
+### 3.2 Input: `DS-FR-11`
 
 | Prop                     | Type                                 | Notes                                                         |
 | ------------------------ | ------------------------------------ | ------------------------------------------------------------- |
@@ -134,20 +134,20 @@ fullWidth: boolean;
 States: default, focus, error, disabled. Password variant exposes a show/hide toggle button
 (`aria-pressed`, `aria-label`). Never rely on placeholder as label.
 
-### 3.3 Select — `DS-FR-12`
+### 3.3 Select: `DS-FR-12`
 
 Native `<select>` styled (most accessible default) OR a headless listbox if rich content is
 needed. Spec'd as native: `label`, `hint`, `error`, `options: {label,value}[]`,
 `placeholder`. Same label/error wiring as Input. If a custom listbox is built it MUST
 implement `role="listbox"`, arrow-key navigation, `aria-activedescendant`, and type-ahead.
 
-### 3.4 Card — `DS-FR-13`
+### 3.4 Card: `DS-FR-13`
 
 Composable: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`,
 `CardFooter`. Surface bg, `lg` radius, `sm` shadow, `border`. `interactive` variant adds
 hover elevation + pointer; if interactive it MUST be a `button`/`a` or have appropriate role.
 
-### 3.5 Table — `DS-FR-14`
+### 3.5 Table: `DS-FR-14`
 
 Semantic `<table>` with `<caption>` (visually-hidden ok), `<thead>`, `scope="col"` headers,
 `<tbody>`. Props: `columns: Column<T>[]` (`{ header, accessor, sortable?, align?, cell? }`),
@@ -158,7 +158,7 @@ Semantic `<table>` with `<caption>` (visually-hidden ok), `<thead>`, `scope="col
 - Row click MUST also be keyboard reachable (row action button or roving focus). Used in
   table/card responsive pattern (see `DataTable` in `components/shared`).
 
-### 3.6 Modal (Dialog) — `DS-FR-15`
+### 3.6 Modal (Dialog): `DS-FR-15`
 
 Built on a focus-trap dialog (Radix Dialog or hand-rolled).
 
@@ -167,35 +167,35 @@ Built on a focus-trap dialog (Radix Dialog or hand-rolled).
 - `Esc` closes; click on overlay closes (configurable); background `inert`/scroll-locked.
 - Framer Motion fade+scale (respects reduced motion). Variants: `sm|md|lg`.
 
-### 3.7 Drawer — `DS-FR-16`
+### 3.7 Drawer: `DS-FR-16`
 
 Side sheet variant of Modal (slides from right; bottom-sheet on mobile). Same a11y contract
 as Modal. Used by the transaction detail view.
 
-### 3.8 Avatar — `DS-FR-17`
+### 3.8 Avatar: `DS-FR-17`
 
 `src?`, `name` (for initials fallback + `alt`), `size: sm|md|lg`. Falls back to initials on
 missing/broken image (`onError`). Decorative-only avatars get `alt=""`; identifying ones get
 the person's name as `alt`.
 
-### 3.9 Badge — `DS-FR-18`
+### 3.9 Badge: `DS-FR-18`
 
 `variant: neutral | success | warning | danger | info`, `size: sm|md`. Used for account
 `status` and transaction `type`. MUST include text (not colour-only). Optional leading dot/icon.
 
-### 3.10 Skeleton — `DS-FR-19`
+### 3.10 Skeleton: `DS-FR-19`
 
 `SkeletonLine`, `SkeletonCircle`, `SkeletonCard`, plus composed `Skeleton.Table` /
 `Skeleton.StatCard`. Subtle shimmer (reduced-motion → static). Decorative →
 `aria-hidden="true"`; container exposes `aria-busy="true"` / `role="status"` with SR text
 "Loading …".
 
-### 3.11 EmptyState — `DS-FR-20`
+### 3.11 EmptyState: `DS-FR-20`
 
 `icon`, `title`, `description`, optional `action` (Button). Centered, calm. Used when a
 query succeeds with zero results. Provides guidance, not just "No data".
 
-### 3.12 ErrorState — `DS-FR-21`
+### 3.12 ErrorState: `DS-FR-21`
 
 `title`, `description`, `onRetry?`, `error?`. Renders a retry Button wired to React Query
 `refetch`. Friendly, non-technical copy; never dumps stack traces to users. `role="alert"`.
@@ -212,13 +212,13 @@ query succeeds with zero results. Provides guidance, not just "No data".
 
 Built from primitives, feature-agnostic, reused across features:
 
-- **`PageHeader`** — title, subtitle, actions slot.
-- **`StatCard`** — label, value (money), delta, icon; used on dashboard.
-- **`DataTable<T>`** — Table on desktop, Card list on mobile (via `useMediaQuery`); wires
+- **`PageHeader`**: title, subtitle, actions slot.
+- **`StatCard`**: label, value (money), delta, icon; used on dashboard.
+- **`DataTable<T>`**: Table on desktop, Card list on mobile (via `useMediaQuery`); wires
   sort + loading + empty + error. Backbone of Accounts & Transactions.
-- **`SearchInput`** — debounced input, clear button, `role="searchbox"`.
-- **`MoneyAmount`** — formats minor units; colours + signs by direction; `tabular-nums`.
-- **`Pagination`** — accessible page controls (`aria-label`, current `aria-current`).
+- **`SearchInput`**: debounced input, clear button, `role="searchbox"`.
+- **`MoneyAmount`**: formats minor units; colours + signs by direction; `tabular-nums`.
+- **`Pagination`**: accessible page controls (`aria-label`, current `aria-current`).
 
 ---
 
