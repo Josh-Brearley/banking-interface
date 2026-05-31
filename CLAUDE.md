@@ -5,6 +5,27 @@ Guidance for working in this repository. Read this before making changes.
 Eagle Bank is a **spec-driven**, **test-driven** banking frontend. The backend is mocked
 (local JSON + a service layer). Specs are the source of truth; tests prove the specs.
 
+## What's built so far
+
+Delivered on `main` (each as its own short-lived branch, TDD, merged `--no-ff`):
+
+- **Foundation** — Vite + TS (strict) + Tailwind + ESLint/Prettier + Vitest; providers
+  (Query + Auth + ErrorBoundary), lazy router, app shell, mock service layer + seed data.
+- **Design system** ([`components/ui`](./src/components/ui)) — Button, Input, Select, Card,
+  Table, Modal, Drawer, Avatar, Badge, Skeleton, EmptyState, ErrorState; tokens +
+  `class-variance-authority`. **Brand**: navy `#0B2A5B` + cyan `#18A8E0` (from the logo),
+  self-hosted **Inter**.
+- **Auth** — login + registration (RHF + Zod), session persistence, protected routes, logout.
+- **Dashboard** — balance/in/out stat cards, recent activity, quick actions (Transfer modal).
+- **Accounts** — responsive list (table↔cards via `DataTable`), URL search + sort, badges.
+- **Transactions** — search + date-range + type filters, sort, pagination, focus-trapped
+  detail drawer; all URL-driven.
+- **Profile** — view/edit (RHF + Zod), avatar upload (frontend-only), cross-app sync.
+
+**Status:** all five feature specs complete · **99 tests** (23 files) · gates green
+(lint/typecheck/test/build). Remaining: README polish, optional CI/a11y/perf hardening
+(see [README → Future improvements](./README.md#future-improvements)).
+
 ## Golden rules
 
 1. **Spec first.** Every change traces to a requirement ID in [`specs/`](./specs/README.md)
@@ -16,7 +37,19 @@ Eagle Bank is a **spec-driven**, **test-driven** banking frontend. The backend i
    [`specs/01-architecture.md`](./specs/01-architecture.md#3-module-boundary-rules-arch-nfr-02).
 5. **Every state has a UI** — loading, empty, error, success. "Happy path only" is incomplete.
 6. **Accessibility is non-negotiable** — semantic HTML, keyboard, focus, ARIA, AA contrast.
+   Prefer native semantics; never disable a submit button to enforce validity (it blocks error
+   feedback) — gate on _dirty_ and validate on submit. Colour is never the only signal.
 7. **No `any`** (lint error). Validate external/runtime data with Zod at the boundary.
+8. **Responsive by default** — build mobile-first; verify at 375 / 768 / 1280. Data lists use
+   the table↔card pattern ([`DataTable`](./src/components/shared/DataTable.tsx)). No hard-coded
+   pixel widths.
+9. **Tokens, not raw values** — reference design tokens (semantic colours, spacing, type ramp)
+   via Tailwind/`cn()`; never hard-code hex/px. Cyan is an accent only (fails AA as text).
+10. **Server state in TanStack Query; list state in the URL; forms in RHF+Zod.** Never copy
+    server data into `useState`.
+11. **Keep the spec honest.** If a spec proves inconsistent or wrong while implementing, update
+    the spec (with rationale) — don't silently diverge. (e.g. the profile Save-gating decision.)
+12. **Money is integer minor units** — format only at the view edge; never float-math currency.
 
 ## TDD workflow
 
@@ -94,9 +127,17 @@ Key conventions:
   `formatMoney` (`lib/utils`). Never do float math on currency.
 - **Server state** lives in TanStack Query; **list filters/sort/page** live in the URL;
   **forms** use React Hook Form + Zod. Never copy server data into local state.
-- **Query keys** come from the factory in `lib/api/queryKeys.ts`.
+- **Query keys** come from the factory in `lib/api/queryKeys.ts`; invalidate precisely on
+  mutation (e.g. profile update → `profile.me` + `auth.me` + `AuthProvider.setUser`).
 - **Design-system primitives** use `class-variance-authority`; compose classes with `cn()`.
 - New page? It must be **lazy-loaded** in `app/router/router.tsx`.
+- **Lists** (table/cards, loading/empty/error) go through `components/shared/DataTable`;
+  **money** renders via `components/shared/MoneyAmount` (signed + colour + sign).
+- **Dialogs** (Modal/Drawer) get focus management from `hooks/useFocusTrap` (focus-in, Tab
+  trap, `Esc`, focus restore). **Debounce** search inputs (`hooks/useDebouncedValue`) before
+  writing to the URL.
+- **Tests** use `tests/renderWithProviders` + typed `tests/fixtures`; query by role/label,
+  control viewport via `matchMedia`, and isolate via the `afterEach` cleanup in `tests/setup`.
 
 ## Branching quick reference
 
