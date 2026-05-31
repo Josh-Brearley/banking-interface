@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Input, Select } from "@/components/ui";
+import { Button, Input, Select } from "@/components/atoms";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import type { TransactionType } from "@/types";
 
@@ -39,7 +39,7 @@ export function TransactionFilters({
   const debounced = useDebouncedValue(term, 200);
 
   // Push the debounced term to the URL only when it diverges from the current
-  // value — avoids resetting the page on mount / deep-link.
+  // value, avoids resetting the page on mount / deep-link.
   useEffect(() => {
     if (debounced !== q) onSearch(debounced);
   }, [debounced, q, onSearch]);

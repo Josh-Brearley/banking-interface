@@ -5,7 +5,7 @@ const FOCUSABLE =
 
 function getFocusable(node: HTMLElement | null): HTMLElement[] {
   if (!node) return [];
-  // Note: avoid layout-based visibility checks (offsetParent/getClientRects) —
+  // Note: avoid layout-based visibility checks (offsetParent/getClientRects);
   // they are always falsy in jsdom and would empty this list under test.
   return Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
     (el) =>
@@ -14,7 +14,7 @@ function getFocusable(node: HTMLElement | null): HTMLElement[] {
 }
 
 /**
- * Focus management for modal dialogs — NFR-A11Y-08 / DS-FR-15.
+ * Focus management for modal dialogs, NFR-A11Y-08 / DS-FR-15.
  * On mount: remembers the trigger and moves focus inside. Traps Tab within the
  * container, closes on Escape, and restores focus to the trigger on unmount.
  */

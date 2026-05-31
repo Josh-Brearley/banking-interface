@@ -14,7 +14,7 @@ main ──●────●────────●────────
          feat/auth  feat/dashboard  chore/scaffold   (short-lived, one unit of work)
 ```
 
-- **`main`** — the trunk. Always green (lint + typecheck + tests + build pass). Never commit
+- **`main`**: the trunk. Always green (lint + typecheck + tests + build pass). Never commit
   directly; merge only via PR.
 - **Working branches** are short-lived (hours–days), cut from the latest `main`, and deleted
   after merge. Keep them small and focused on a single spec/feature.
@@ -45,16 +45,16 @@ Create one with the helper:
 
 ---
 
-## 2. Commit convention — [Conventional Commits](https://www.conventionalcommits.org/)
+## 2. Commit convention: [Conventional Commits](https://www.conventionalcommits.org/)
 
 ```
 <type>(<scope>): <subject>
 
-<body — what & why, reference requirement IDs>
+<body, what & why, reference requirement IDs>
 ```
 
 - **type**: `feat | fix | chore | docs | refactor | test | perf | style | ci`
-- **scope** (optional): the feature/area — `auth`, `accounts`, `ui`, `services`…
+- **scope** (optional): the feature/area, `auth`, `accounts`, `ui`, `services`…
 - Reference spec IDs in the body: `Implements AUTH-FR-03, AUTH-AC-04`.
 
 Examples:
@@ -111,8 +111,8 @@ is met and:
 
 Build bottom-up so each branch rests on a stable foundation:
 
-1. `chore/scaffold` — project skeleton (this is the first branch).
-2. `feat/design-system` — tokens + UI primitives ([02](./specs/02-design-system.md)).
-3. `feat/services-mock` — types, seed data, service layer ([03](./specs/03-api-and-data.md)).
+1. `chore/scaffold`, project skeleton (this is the first branch).
+2. `feat/design-system`, tokens + UI primitives ([02](./specs/02-design-system.md)).
+3. `feat/services-mock`, types, seed data, service layer ([03](./specs/03-api-and-data.md)).
 4. `feat/auth` → `feat/dashboard` → `feat/accounts` → `feat/transactions` → `feat/profile`.
-5. `chore/ci`, `chore/a11y-perf-audit` — hardening.
+5. `chore/ci`, `chore/a11y-perf-audit`, hardening.

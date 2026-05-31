@@ -1,4 +1,4 @@
-# 00 — Product Constitution
+# 00: Product Constitution
 
 > Status: Approved · Owner: Frontend Platform · Inherited by: **all** specs
 
@@ -10,13 +10,13 @@ honour. When a feature spec and the constitution conflict, the constitution wins
 ## 1. Vision
 
 Eagle Bank is a **modern retail banking web platform**. It should feel as fast,
-trustworthy, and calm as Monzo, Revolut, Chase UK, or modern Barclays digital — clean,
+trustworthy, and calm as Monzo, Revolut, Chase UK, or modern Barclays digital, clean,
 professional, minimal, never flashy. The frontend is built to be evolved into a real
 production system: multi-team, multi-product, micro-frontend-ready, and backed by real
 APIs in future.
 
 This codebase mocks the backend with local JSON + a service layer. **No real backend
-exists**, but the frontend is written as though one does — service boundaries, error
+exists**, but the frontend is written as though one does, service boundaries, error
 handling, loading states, and caching are all production-shaped.
 
 ---
@@ -30,7 +30,7 @@ handling, loading states, and caching are all production-shaped.
 | `ARCH-NFR-03` | **Type safety end to end**                        | `strict` TypeScript. No `any` in committed code (lint error). Runtime data validated with Zod at the boundary.                                        |
 | `ARCH-NFR-04` | **Server state ≠ client state**                   | Remote data is owned by TanStack Query. Local UI state uses React state/context. Never duplicate server state into local state.                       |
 | `ARCH-NFR-05` | **Accessibility is a feature, not a polish step** | Every component ships keyboard + screen-reader support. A PR that regresses a11y is a broken PR.                                                      |
-| `ARCH-NFR-06` | **Small, composable units**                       | Components do one thing. Files trend small; large files are a smell, not a milestone. No prop drilling beyond one level — lift to context or compose. |
+| `ARCH-NFR-06` | **Small, composable units**                       | Components do one thing. Files trend small; large files are a smell, not a milestone. No prop drilling beyond one level, lift to context or compose. |
 | `ARCH-NFR-07` | **Every state has a UI**                          | Loading, empty, error, and success are designed for every data-driven view. "Happy path only" is incomplete.                                          |
 | `ARCH-NFR-08` | **Tests express intent**                          | Tests assert user-observable behaviour and trace to a requirement ID. We test behaviour, not implementation details.                                  |
 | `ARCH-NFR-09` | **Performance budget is a contract**              | Route-level code splitting, lazy loading, memoisation where it pays. Lighthouse Performance & Accessibility ≥ 90.                                     |
@@ -42,11 +42,11 @@ handling, loading states, and caching are all production-shaped.
 
 When trade-offs arise, resolve in this order:
 
-1. **Architecture** — correctness of boundaries and types.
-2. **Accessibility** — usable by everyone.
-3. **Performance** — fast by default.
-4. **Testing** — verified behaviour.
-5. **User experience** — delight on top of the above.
+1. **Architecture**: correctness of boundaries and types.
+2. **Accessibility**: usable by everyone.
+3. **Performance**: fast by default.
+4. **Testing**: verified behaviour.
+5. **User experience**: delight on top of the above.
 
 A faster but inaccessible solution loses. A prettier but untested solution loses.
 
@@ -56,8 +56,8 @@ A faster but inaccessible solution loses. A prettier but untested solution loses
 
 | Persona                       | Goal                                                                     | Implication                                                     |
 | ----------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| **Priya — everyday customer** | Check balance, review transactions, transfer money on mobile in seconds. | Mobile-first, fast, low cognitive load, clear money formatting. |
-| **Sam — accessibility user**  | Operate the entire app with a keyboard and screen reader.                | Full keyboard nav, focus management, ARIA, semantic HTML.       |
+| **Priya, everyday customer** | Check balance, review transactions, transfer money on mobile in seconds. | Mobile-first, fast, low cognitive load, clear money formatting. |
+| **Sam, accessibility user**  | Operate the entire app with a keyboard and screen reader.                | Full keyboard nav, focus management, ARIA, semantic HTML.       |
 | **Engineering reviewer**      | Assess architecture, scalability, maintainability.                       | Clean boundaries, documented decisions, traceable specs/tests.  |
 
 ---

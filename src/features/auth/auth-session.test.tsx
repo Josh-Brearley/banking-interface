@@ -29,7 +29,7 @@ describe("Auth session", () => {
   it("rehydrates a persisted session on load (AUTH-AC-13)", async () => {
     await seedSession();
     renderWithProviders(<AuthProbe />);
-    expect(await screen.findByText(/hi priya shah/i)).toBeInTheDocument();
+    expect(await screen.findByText(/hi josh brearley/i)).toBeInTheDocument();
   });
 
   it("clears the session on logout (AUTH-AC-12)", async () => {

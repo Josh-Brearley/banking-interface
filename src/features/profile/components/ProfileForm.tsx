@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, CardContent, Input } from "@/components/ui";
+import { Button, Card, CardContent, Input } from "@/components/atoms";
 import { ApiError } from "@/lib/api/client";
 import type { User } from "@/types";
 import {

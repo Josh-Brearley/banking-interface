@@ -1,4 +1,4 @@
-import { Button, Card, CardContent } from "@/components/ui";
+import { Button, Card, CardContent } from "@/components/atoms";
 import type { User } from "@/types";
 import { AvatarUpload } from "./AvatarUpload";
 

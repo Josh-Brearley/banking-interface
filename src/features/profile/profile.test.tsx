@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "@/tests/renderWithProviders";
 import { makeUser } from "@/tests/fixtures";
 import { ApiError } from "@/lib/api/client";
-import { writeSession } from "@/lib/auth/session";
+import { readSession, writeSession } from "@/lib/auth/session";
 import { useAuth } from "@/app/providers/AuthProvider";
 import * as authService from "@/services/auth.service";
 import * as profileService from "@/services/profile.service";
@@ -127,7 +127,7 @@ describe("ProfilePage", () => {
       </>,
       { initialEntries: ["/profile"] },
     );
-    expect(await screen.findByText(/auth: priya shah/i)).toBeInTheDocument();
+    expect(await screen.findByText(/auth: josh brearley/i)).toBeInTheDocument();
     await startEditing();
     const name = screen.getByLabelText(/full name/i);
     await userEvent.clear(name);
@@ -191,5 +191,21 @@ describe("ProfilePage", () => {
     vi.spyOn(profileService, "getProfile").mockResolvedValue(baseUser);
     await userEvent.click(screen.getByRole("button", { name: /try again/i }));
     expect(await screen.findByText("Priya Shah")).toBeInTheDocument();
+  });
+
+  it("logs out from the profile page, clearing the session (AUTH-FR-10)", async () => {
+    const session = await authService.login({
+      email: "demo@eaglebank.com",
+      password: "Password123!",
+    });
+    writeSession(session);
+    mockProfile();
+    renderWithProviders(<ProfilePage />, { initialEntries: ["/profile"] });
+
+    await userEvent.click(
+      await screen.findByRole("button", { name: /log out/i }),
+    );
+
+    await waitFor(() => expect(readSession()).toBeNull());
   });
 });

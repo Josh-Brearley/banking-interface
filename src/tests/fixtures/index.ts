@@ -1,6 +1,6 @@
 import type { Account, DashboardSummary, Transaction, User } from "@/types";
 
-/** Typed factories for tests — specs/04-testing-strategy.md §2. */
+/** Typed factories for tests, specs/04-testing-strategy.md §2. */
 
 export function makeUser(overrides: Partial<User> = {}): User {
   return {

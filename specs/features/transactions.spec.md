@@ -1,4 +1,4 @@
-# Feature Spec — Transactions
+# Feature Spec: Transactions
 
 > Status: Approved · Feature ID: `TXN` · Owner: Money squad
 > Inherits: [00](../00-product-constitution.md) · [02](../02-design-system.md) · [03](../03-api-and-data.md) · [05](../05-cross-cutting.md)
@@ -7,7 +7,7 @@
 
 `/transactions` is the full transaction history with search, date-range filtering, sorting
 (date/amount), pagination, and a **detail drawer**. Backed by `GET /api/transactions`
-(paginated — [03 §4.4](../03-api-and-data.md#44-transactions--transactionsservicets)).
+(paginated, [03 §4.4](../03-api-and-data.md#44-transactions--transactionsservicets)).
 
 ## 2. User stories
 
@@ -29,7 +29,7 @@
 | `TXN-FR-07` | **Detail drawer/modal** opens on row activation showing full transaction info; focus-trapped; `Esc`/close restores focus (`DS-FR-15/16`). |
 | `TXN-FR-08` | **Loading** → skeleton rows; **Empty** → EmptyState; **Error** → ErrorState + retry.                                                      |
 | `TXN-FR-09` | Distinct **filtered-empty** state ("no transactions match your filters") with a **clear filters** action.                                 |
-| `TXN-FR-10` | Amounts signed & coloured by direction (credit `+`/success, debit `−`/danger) — sign always present (`NFR-A11Y-07`).                      |
+| `TXN-FR-10` | Amounts signed & coloured by direction (credit `+`/success, debit `−`/danger), sign always present (`NFR-A11Y-07`).                      |
 | `TXN-FR-11` | Responsive: table on desktop, cards on mobile.                                                                                            |
 | `TXN-FR-12` | Filters/sort/page are **shareable via URL** and survive refresh & back/forward.                                                           |
 

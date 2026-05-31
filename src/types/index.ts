@@ -1,5 +1,5 @@
 /**
- * Shared domain types — the contract from specs/03-api-and-data.md.
+ * Shared domain types, the contract from specs/03-api-and-data.md.
  * Money is stored in integer minor units (pennies).
  */
 

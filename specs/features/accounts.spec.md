@@ -1,4 +1,4 @@
-# Feature Spec — Accounts
+# Feature Spec: Accounts
 
 > Status: Approved · Feature ID: `ACCT` · Owner: Money squad
 > Inherits: [00](../00-product-constitution.md) · [02](../02-design-system.md) · [03](../03-api-and-data.md) · [05](../05-cross-cutting.md)
@@ -35,7 +35,7 @@ search and sorting. **Desktop → table; mobile → cards** (the `DataTable` pat
 ### 4.1 Components (`features/accounts/`)
 
 - `pages/AccountsPage`
-- `components/AccountsTable` (desktop) / `AccountCard` (mobile) — composed via shared `DataTable<Account>`
+- `components/AccountsTable` (desktop) / `AccountCard` (mobile), composed via shared `DataTable<Account>`
 - `components/AccountStatusBadge`, `AccountTypeBadge`
 - `hooks/useAccounts(query)` → `useQuery(queryKeys.accounts.list(query), () => listAccounts(query))`
 

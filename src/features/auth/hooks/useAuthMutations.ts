@@ -3,7 +3,7 @@ import { useAuth } from "@/app/providers/AuthProvider";
 import * as authService from "@/services/auth.service";
 import type { LoginValues, RegisterValues } from "../schemas/auth.schema";
 
-/** Login mutation — persists the session via AuthProvider on success (AUTH-FR-06). */
+/** Login mutation, persists the session via AuthProvider on success (AUTH-FR-06). */
 export function useLogin() {
   const { login } = useAuth();
   return useMutation({
@@ -12,7 +12,7 @@ export function useLogin() {
   });
 }
 
-/** Registration mutation — strips confirmPassword before calling the service. */
+/** Registration mutation, strips confirmPassword before calling the service. */
 export function useRegister() {
   const { login } = useAuth();
   return useMutation({
@@ -22,7 +22,7 @@ export function useRegister() {
   });
 }
 
-/** Logout mutation — clears session + cache via AuthProvider (AUTH-FR-10). */
+/** Logout mutation, clears session + cache via AuthProvider (AUTH-FR-10). */
 export function useLogout() {
   const { logout } = useAuth();
   return useMutation({ mutationFn: () => logout() });

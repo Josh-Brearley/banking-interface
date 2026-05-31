@@ -1,4 +1,4 @@
-import { Badge, type BadgeProps } from "@/components/ui";
+import { Badge, type BadgeProps } from "@/components/atoms";
 import type { AccountStatus, AccountType } from "@/types";
 
 const statusVariant: Record<AccountStatus, BadgeProps["variant"]> = {

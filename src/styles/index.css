@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /**
- * Design tokens — specs/02-design-system.md.
+ * Design tokens, specs/02-design-system.md.
  * Colours are space-separated RGB channels so Tailwind's <alpha-value> works.
  */
 @layer base {
@@ -15,10 +15,10 @@
     --color-foreground: 11 13 18; /* #0B0D12 */
     --color-foreground-muted: 91 100 114; /* #5B6472 */
 
-    --color-primary: 11 42 91; /* #0B2A5B — brand navy (from logo) */
+    --color-primary: 11 42 91; /* #0B2A5B, brand navy (from logo) */
     --color-primary-foreground: 255 255 255;
 
-    --color-secondary: 24 168 224; /* #18A8E0 — brand cyan accent */
+    --color-secondary: 24 168 224; /* #18A8E0, brand cyan accent */
     --color-secondary-foreground: 255 255 255;
     --color-secondary-subtle: 224 244 252; /* #E0F4FC */
 
@@ -31,7 +31,7 @@
     --color-info: 21 119 184; /* #1577B8 */
     --color-info-subtle: 224 240 250;
 
-    --color-ring: 11 42 91; /* navy focus ring — high contrast on light bg */
+    --color-ring: 11 42 91; /* navy focus ring, high contrast on light bg */
   }
 
   * {
@@ -58,6 +58,23 @@
   /* Tabular figures for money. */
   .tabular-nums {
     font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Soft brand-tinted backdrop behind the authenticated shell. */
+  .bg-app-canvas {
+    @apply bg-gradient-to-br from-secondary-subtle via-background to-secondary-subtle/50;
+  }
+
+  /* Brand gradient (navy → cyan) for hero / promotional surfaces. */
+  .bg-brand-gradient {
+    @apply bg-gradient-to-br from-primary to-secondary;
+  }
+
+  /* Gently tinted surface used by the dashboard "My card" hero. */
+  .bg-surface-tinted {
+    @apply bg-gradient-to-br from-secondary-subtle via-surface to-surface;
   }
 }
 

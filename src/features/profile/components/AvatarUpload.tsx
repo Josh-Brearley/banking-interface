@@ -1,5 +1,6 @@
 import { useId, useRef, useState, type ChangeEvent } from "react";
-import { Avatar } from "@/components/ui";
+import { Avatar, buttonVariants } from "@/components/atoms";
+import { cn } from "@/lib/utils";
 
 const MAX_BYTES = 2 * 1024 * 1024;
 const ACCEPTED = ["image/png", "image/jpeg", "image/webp"];
@@ -27,7 +28,7 @@ export function AvatarUpload({ name, src, onChange }: AvatarUploadProps) {
       return;
     }
     if (file.size > MAX_BYTES) {
-      setError("That image is too large — please choose one under 2MB.");
+      setError("That image is too large, please choose one under 2MB.");
       return;
     }
 
@@ -45,7 +46,10 @@ export function AvatarUpload({ name, src, onChange }: AvatarUploadProps) {
       <div>
         <label
           htmlFor={inputId}
-          className="inline-flex h-9 cursor-pointer items-center rounded-md border border-border bg-surface px-3 text-body-sm font-medium focus-within:ring-2 focus-within:ring-ring hover:bg-surface-muted"
+          className={cn(
+            buttonVariants({ variant: "outline", size: "sm" }),
+            "cursor-pointer focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background",
+          )}
         >
           Change photo
         </label>

@@ -4,7 +4,7 @@ import { useAuth } from "@/app/providers/AuthProvider";
 import * as profileService from "@/services/profile.service";
 import type { UpdateProfileBody } from "@/services/profile.service";
 
-/** Current user's profile — specs/features/profile.spec.md §4. */
+/** Current user's profile, specs/features/profile.spec.md §4. */
 export function useProfile() {
   return useQuery({
     queryKey: queryKeys.profile.me(),

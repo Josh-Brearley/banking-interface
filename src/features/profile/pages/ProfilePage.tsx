@@ -1,22 +1,37 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/providers/AuthProvider";
-import { PageHeader } from "@/components/shared/PageHeader";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { PageHeader } from "@/components/molecules/PageHeader";
 import {
+  Button,
   Card,
   CardContent,
   ErrorState,
   Skeleton,
   SkeletonRegion,
-} from "@/components/ui";
+  IconLogout,
+} from "@/components/atoms";
 import { useProfile } from "../hooks/useProfile";
 import { ProfileView } from "../components/ProfileView";
 import { ProfileForm } from "../components/ProfileForm";
 
 export function ProfilePage() {
+  useDocumentTitle("Profile");
   const { data: profile, isPending, isError, refetch } = useProfile();
-  const { user, setUser } = useAuth();
+  // Logout comes from the shared auth context (cross-feature comms go via
+  // context, not another feature's internals — specs/01-architecture.md §3).
+  const { user, setUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    await logout();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -67,6 +82,28 @@ export function ProfilePage() {
           }}
           onAvatarChange={(url) => user && setUser({ ...user, avatarUrl: url })}
         />
+      )}
+
+      {/* Logout lives here (moved off the side nav) — AUTH-FR-10. */}
+      {!isEditing && (
+        <Card className="mt-6">
+          <CardContent className="flex flex-wrap items-center justify-between gap-4 py-4">
+            <div>
+              <p className="text-body font-medium">Sign out</p>
+              <p className="text-body-sm text-foreground-muted">
+                End your session on this device.
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              onClick={handleLogout}
+              isLoading={isLoggingOut}
+              leftIcon={<IconLogout className="h-4 w-4" />}
+            >
+              Log out
+            </Button>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
