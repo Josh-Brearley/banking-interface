@@ -38,6 +38,14 @@ export function maskAccountNumber(accountNumber: string): string {
   return `•••• ${last4}`;
 }
 
+/** Signed minor units for display: debits are negative, credits positive. */
+export function signedMinor(
+  amountMinor: number,
+  direction: "credit" | "debit",
+): number {
+  return direction === "debit" ? -amountMinor : amountMinor;
+}
+
 /** Initials from a full name, for avatar fallback. */
 export function getInitials(fullName: string): string {
   return fullName
