@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/utils";
+import { IconEye, IconEyeOff } from "./icons";
 
 export interface InputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -21,7 +22,7 @@ export interface InputProps extends Omit<
   showPasswordToggle?: boolean;
 }
 
-/** Input — specs/02-design-system.md §3.2 (DS-FR-11). */
+/** Input, specs/02-design-system.md §3.2 (DS-FR-11). */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -90,7 +91,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               aria-label={revealed ? "Hide password" : "Show password"}
               className="absolute right-2 rounded p-1 text-foreground-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              {revealed ? "🙈" : "👁"}
+              {revealed ? (
+                <IconEyeOff className="h-4 w-4" />
+              ) : (
+                <IconEye className="h-4 w-4" />
+              )}
             </button>
           )}
 

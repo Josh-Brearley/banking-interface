@@ -18,7 +18,7 @@ export interface SelectProps extends Omit<
   id?: string;
 }
 
-/** Native styled Select — specs/02-design-system.md §3.3 (DS-FR-12). */
+/** Native styled Select, specs/02-design-system.md §3.3 (DS-FR-12). */
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {

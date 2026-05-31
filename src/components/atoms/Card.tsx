@@ -1,7 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-/** Composable Card — specs/02-design-system.md §3.4 (DS-FR-13). */
+/** Composable Card, specs/02-design-system.md §3.4 (DS-FR-13). */
 export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...rest }, ref) => (
     <div

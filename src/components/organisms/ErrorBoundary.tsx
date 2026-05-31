@@ -1,5 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/atoms";
 
 interface Props {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface State {
 }
 
 /**
- * App-level error boundary — NFR-ERR-01. Renders a friendly fallback instead of
+ * App-level error boundary, NFR-ERR-01. Renders a friendly fallback instead of
  * a white screen and lets the user recover.
  */
 export class ErrorBoundary extends Component<Props, State> {
@@ -41,7 +41,7 @@ export class ErrorBoundary extends Component<Props, State> {
       >
         <h1 className="text-h1">Something went wrong</h1>
         <p className="max-w-md text-foreground-muted">
-          We hit an unexpected problem. Your money is safe — please try
+          We hit an unexpected problem. Your money is safe, please try
           reloading the page.
         </p>
         <Button onClick={this.handleReset}>Reload Eagle Bank</Button>

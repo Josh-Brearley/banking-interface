@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn, getInitials } from "@/lib/utils";
 
-/** Avatar variants — specs/02-design-system.md §3.8 (DS-FR-17). */
+/** Avatar variants, specs/02-design-system.md §3.8 (DS-FR-17). */
 export const avatarVariants = cva(
   "inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/10 font-semibold text-primary",
   {

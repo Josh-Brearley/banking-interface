@@ -1,4 +1,4 @@
-import { Badge, type BadgeProps } from "@/components/ui";
+import { Badge, type BadgeProps } from "@/components/atoms";
 import type { TransactionType } from "@/types";
 
 const variant: Record<TransactionType, BadgeProps["variant"]> = {

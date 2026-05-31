@@ -8,7 +8,7 @@ import {
   Table,
   type Column,
   type SortState,
-} from "@/components/ui";
+} from "@/components/atoms";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export interface DataTableProps<T> {
@@ -29,7 +29,7 @@ export interface DataTableProps<T> {
 }
 
 /**
- * Responsive data presentation — Table on desktop, cards on mobile (DS §4).
+ * Responsive data presentation, Table on desktop, cards on mobile (DS §4).
  * Owns loading / error / empty so both layouts stay consistent.
  */
 export function DataTable<T>({

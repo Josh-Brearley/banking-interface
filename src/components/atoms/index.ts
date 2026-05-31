@@ -24,3 +24,24 @@ export { Modal, type ModalProps } from "./Modal";
 export { Drawer, type DrawerProps } from "./Drawer";
 export { Skeleton, SkeletonRegion } from "./Skeleton";
 export { Spinner } from "./Spinner";
+export {
+  IconDashboard,
+  IconAccounts,
+  IconTransactions,
+  IconProfile,
+  IconLogout,
+  IconTransfer,
+  IconRequest,
+  IconHistory,
+  IconArrowUpRight,
+  IconArrowDownRight,
+  IconPlus,
+  IconBriefcase,
+  IconSearch,
+  IconBell,
+  IconMail,
+  IconLock,
+  IconShieldCheck,
+  IconEye,
+  IconEyeOff,
+} from "./icons";

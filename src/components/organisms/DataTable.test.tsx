@@ -2,7 +2,7 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { DataTable } from "./DataTable";
-import type { Column } from "@/components/ui";
+import type { Column } from "@/components/atoms";
 
 interface Row {
   id: string;

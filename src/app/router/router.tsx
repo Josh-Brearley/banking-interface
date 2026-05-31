@@ -5,7 +5,7 @@ import { AppShell } from "@/app/layouts/AppShell";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 /**
- * Route tree with per-page code splitting — specs/01-architecture.md §4.
+ * Route tree with per-page code splitting, specs/01-architecture.md §4.
  * Each page is its own chunk via React.lazy.
  */
 const LoginPage = lazy(() =>

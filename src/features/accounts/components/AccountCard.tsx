@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui";
-import { MoneyAmount } from "@/components/shared/MoneyAmount";
+import { Card, CardContent } from "@/components/atoms";
+import { MoneyAmount } from "@/components/molecules/MoneyAmount";
 import { maskAccountNumber } from "@/lib/utils";
 import type { Account } from "@/types";
 import { AccountStatusBadge, AccountTypeBadge } from "./AccountBadges";

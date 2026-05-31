@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/atoms";
 
 /**
  * Temporary scaffold placeholder for features not yet implemented. Each links

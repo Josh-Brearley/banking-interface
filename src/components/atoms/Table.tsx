@@ -35,7 +35,7 @@ const alignClass = {
   center: "text-center",
 } as const;
 
-/** Semantic, sortable, accessible table — specs/02-design-system.md §3.5 (DS-FR-14). */
+/** Semantic, sortable, accessible table, specs/02-design-system.md §3.5 (DS-FR-14). */
 export function Table<T>({
   caption,
   columns,

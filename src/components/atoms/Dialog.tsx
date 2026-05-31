@@ -22,7 +22,7 @@ const sizeClasses: Record<NonNullable<DialogBaseProps["size"]>, string> = {
 };
 
 /**
- * Shared focus-trapped dialog shell — DS-FR-15/16 / NFR-A11Y-08.
+ * Shared focus-trapped dialog shell, DS-FR-15/16 / NFR-A11Y-08.
  * The panel only mounts while open so focus management activates/cleans up
  * with the dialog. Modal (centered) and Drawer (side) wrap this.
  */

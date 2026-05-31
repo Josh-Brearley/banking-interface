@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui";
+import { Button } from "@/components/atoms";
 
 interface PaginationProps {
   page: number;
@@ -6,7 +6,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-/** Accessible pager — specs/02-design-system.md §4. */
+/** Accessible pager, specs/02-design-system.md §4. */
 export function Pagination({
   page,
   totalPages,

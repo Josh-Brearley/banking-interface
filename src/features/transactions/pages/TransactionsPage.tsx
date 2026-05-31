@@ -1,15 +1,16 @@
 import { useCallback, useMemo, useState } from "react";
-import { PageHeader } from "@/components/shared/PageHeader";
-import { DataTable } from "@/components/shared/DataTable";
-import { MoneyAmount } from "@/components/shared/MoneyAmount";
-import { Pagination } from "@/components/shared/Pagination";
-import { TransactionTypeBadge } from "@/components/shared/TransactionTypeBadge";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { PageHeader } from "@/components/molecules/PageHeader";
+import { DataTable } from "@/components/organisms/DataTable";
+import { MoneyAmount } from "@/components/molecules/MoneyAmount";
+import { Pagination } from "@/components/molecules/Pagination";
+import { TransactionTypeBadge } from "@/components/molecules/TransactionTypeBadge";
 import {
   Button,
   EmptyState,
   type Column,
   type SortState,
-} from "@/components/ui";
+} from "@/components/atoms";
 import { formatDate, signedMinor } from "@/lib/utils";
 import type { Transaction } from "@/types";
 import { useTransactions } from "../hooks/useTransactions";
@@ -71,6 +72,7 @@ function createColumns(
 }
 
 export function TransactionsPage() {
+  useDocumentTitle("Transactions");
   const params = useTransactionsParams();
   const { query, sort, dir, page, hasFilters, update, clearFilters } = params;
   const { data, isLoading, isError, refetch } = useTransactions(query);

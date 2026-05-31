@@ -2,7 +2,7 @@ import { type HTMLAttributes } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-/** Badge variants — specs/02-design-system.md §3.9 (DS-FR-18). */
+/** Badge variants, specs/02-design-system.md §3.9 (DS-FR-18). */
 export const badgeVariants = cva(
   "inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap",
   {
@@ -36,7 +36,7 @@ const dotColor: Record<
 
 export interface BadgeProps
   extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {
-  /** Render a leading status dot (decorative — meaning comes from the text). */
+  /** Render a leading status dot (decorative, meaning comes from the text). */
   withDot?: boolean;
 }
 

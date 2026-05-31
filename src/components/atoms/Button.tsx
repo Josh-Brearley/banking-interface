@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { Spinner } from "./Spinner";
 
-/** Button variants — specs/02-design-system.md §3.1 (DS-FR-10). */
+/** Button variants, specs/02-design-system.md §3.1 (DS-FR-10). */
 export const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {

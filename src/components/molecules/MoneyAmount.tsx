@@ -7,7 +7,7 @@ interface MoneyAmountProps {
   currency?: CurrencyCode;
   /** Prefix positive values with "+" (negatives always show "−"). */
   signed?: boolean;
-  /** Colour by sign — green positive, red negative. Sign is always textual too. */
+  /** Colour by sign, green positive, red negative. Sign is always textual too. */
   colorBySign?: boolean;
   className?: string;
 }

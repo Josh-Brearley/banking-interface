@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Badge } from "./Badge";
 
-// DS-FR-18: status/type badge. Information must not be colour-only — the label
+// DS-FR-18: status/type badge. Information must not be colour-only, the label
 // text is always present; a decorative dot is hidden from assistive tech.
 describe("Badge", () => {
   it("renders its text label", () => {

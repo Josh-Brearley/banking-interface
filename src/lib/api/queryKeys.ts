@@ -2,7 +2,7 @@ import type { AccountQuery } from "@/services/accounts.service";
 import type { TransactionQuery } from "@/services/transactions.service";
 
 /**
- * Hierarchical, typed React Query key factory — specs/03-api-and-data.md §6.
+ * Hierarchical, typed React Query key factory, specs/03-api-and-data.md §6.
  * List keys embed the full query object so each filter/sort/page combo caches
  * independently.
  */

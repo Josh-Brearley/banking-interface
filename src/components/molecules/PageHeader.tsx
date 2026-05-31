@@ -6,7 +6,7 @@ interface PageHeaderProps {
   actions?: ReactNode;
 }
 
-/** Consistent page heading — sets the page's h1. NFR-A11Y-08/10. */
+/** Consistent page heading, sets the page's h1. NFR-A11Y-08/10. */
 export function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
   return (
     <div className="mb-6 flex flex-wrap items-start justify-between gap-3">

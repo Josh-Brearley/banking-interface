@@ -8,7 +8,15 @@ interface SeedUser extends Omit<User, "avatarUrl"> {
 }
 
 /** In-memory user store (mock). Mutable so profile edits persist per session. */
-const users: SeedUser[] = (usersSeed as SeedUser[]).map((u) => ({ ...u }));
+const users: SeedUser[] = [];
+
+/** (Re)seed the in-memory store from the seed JSON. Deep-cloned so edits never
+ *  bleed back into the imported module or across tests. */
+function seedUsers(): void {
+  users.length = 0;
+  for (const u of usersSeed as SeedUser[]) users.push(structuredClone(u));
+}
+seedUsers();
 
 function toUser(seed: SeedUser): User {
   const { password: _password, avatarUrl, ...rest } = seed;
@@ -16,7 +24,7 @@ function toUser(seed: SeedUser): User {
 }
 
 function makeToken(userId: string): string {
-  // Opaque mock token — not a real JWT.
+  // Opaque mock token, not a real JWT.
   return `mock.${btoa(userId)}.${userId.length}`;
 }
 
@@ -87,7 +95,7 @@ export function logout(): Promise<{ success: true }> {
   return simulateNetwork(() => ({ success: true }), { min: 80, max: 200 });
 }
 
-/** GET /api/auth/me — resolves the user encoded in a mock token. */
+/** GET /api/auth/me, resolves the user encoded in a mock token. */
 export function me(token: string): Promise<User> {
   return simulateNetwork(() => {
     const userId = token.split(".")[1];
@@ -104,4 +112,6 @@ export function me(token: string): Promise<User> {
 export const _userStore = {
   find: (id: string) => users.find((u) => u.id === id),
   toUser,
+  /** Test-only: restore the store to its seeded state (see tests/setup.ts). */
+  reset: seedUsers,
 };

@@ -6,7 +6,7 @@ export interface ErrorStateProps {
   onRetry?: () => void;
 }
 
-/** ErrorState — specs/02-design-system.md §3.12 (DS-FR-21) / NFR-ERR-03. */
+/** ErrorState, specs/02-design-system.md §3.12 (DS-FR-21) / NFR-ERR-03. */
 export function ErrorState({
   title = "Something went wrong",
   description = "We couldn't load this right now. Please try again.",

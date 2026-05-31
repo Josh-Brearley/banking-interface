@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-/** Skeleton placeholder — specs/02-design-system.md §3.10 (DS-FR-19). */
+/** Skeleton placeholder, specs/02-design-system.md §3.10 (DS-FR-19). */
 export function Skeleton({
   className,
   ...rest

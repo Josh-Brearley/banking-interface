@@ -8,7 +8,7 @@ export interface EmptyStateProps {
   action?: { label: string; onClick: () => void };
 }
 
-/** EmptyState — specs/02-design-system.md §3.11 (DS-FR-20). */
+/** EmptyState, specs/02-design-system.md §3.11 (DS-FR-20). */
 export function EmptyState({
   title,
   description,
