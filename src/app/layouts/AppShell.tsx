@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { Button, Spinner } from "@/components/ui";
+import { BrandLogo } from "@/components/shared/BrandLogo";
 import { cn, getInitials } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -31,9 +32,12 @@ export function AppShell() {
       </a>
 
       <header className="flex items-center justify-between border-b border-border bg-surface px-4 py-3 md:flex-col md:items-stretch md:justify-start md:gap-6 md:border-b-0 md:border-r md:py-6">
-        <div className="flex items-center gap-2">
-          <img src="/eagle.svg" alt="" className="h-7 w-7" aria-hidden="true" />
-          <span className="text-h3 font-bold">Eagle Bank</span>
+        <div className="flex items-center">
+          <BrandLogo
+            variant="full"
+            className="hidden h-9 md:block"
+          />
+          <BrandLogo variant="icon" className="h-8 w-8 md:hidden" />
         </div>
 
         <nav aria-label="Primary" className="hidden md:block">
