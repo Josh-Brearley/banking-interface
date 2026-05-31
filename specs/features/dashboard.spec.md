@@ -7,7 +7,7 @@
 
 The post-login home (`/dashboard`). A scannable financial overview: a personal welcome,
 headline balance, monthly in/out, recent activity, and quick actions. Backed by
-`GET /api/dashboard/summary` ([03 §4.2](../03-api-and-data.md#42-dashboard--dashboardservicets)).
+`GET /api/dashboard` ([03 §4.2](../03-api-and-data.md#42-dashboard--dashboardservicets)).
 
 ## 2. User stories
 

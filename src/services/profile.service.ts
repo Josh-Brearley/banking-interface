@@ -20,7 +20,7 @@ export function getProfile(): Promise<User> {
   });
 }
 
-/** PATCH /api/profile */
+/** PUT /api/profile */
 export function updateProfile(body: UpdateProfileBody): Promise<User> {
   return simulateNetwork(() => {
     const seed = _userStore.find(CURRENT_USER_ID);
