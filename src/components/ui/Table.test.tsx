@@ -22,8 +22,17 @@ const columns: Column<Row>[] = [
 // DS-FR-14: semantic, sortable, accessible table with loading & empty states.
 describe("Table", () => {
   it("renders column headers and a row per item", () => {
-    render(<Table caption="Accounts" columns={columns} data={data} getRowId={(r) => r.id} />);
-    expect(screen.getByRole("columnheader", { name: /name/i })).toBeInTheDocument();
+    render(
+      <Table
+        caption="Accounts"
+        columns={columns}
+        data={data}
+        getRowId={(r) => r.id}
+      />,
+    );
+    expect(
+      screen.getByRole("columnheader", { name: /name/i }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("row", { name: /savings/i })).toBeInTheDocument();
     expect(screen.getAllByRole("row")).toHaveLength(3); // header + 2 rows
   });
@@ -43,9 +52,10 @@ describe("Table", () => {
     expect(
       screen.getByRole("columnheader", { name: /balance/i }),
     ).toHaveAttribute("aria-sort", "ascending");
-    expect(
-      screen.getByRole("columnheader", { name: /name/i }),
-    ).toHaveAttribute("aria-sort", "none");
+    expect(screen.getByRole("columnheader", { name: /name/i })).toHaveAttribute(
+      "aria-sort",
+      "none",
+    );
 
     await userEvent.click(screen.getByRole("button", { name: /balance/i }));
     expect(onSortChange).toHaveBeenCalledWith({

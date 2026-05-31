@@ -8,7 +8,8 @@ function getFocusable(node: HTMLElement | null): HTMLElement[] {
   // Note: avoid layout-based visibility checks (offsetParent/getClientRects) —
   // they are always falsy in jsdom and would empty this list under test.
   return Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-    (el) => !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true",
+    (el) =>
+      !el.hasAttribute("disabled") && el.getAttribute("aria-hidden") !== "true",
   );
 }
 

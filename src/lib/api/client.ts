@@ -31,10 +31,13 @@ const DEFAULT_MAX_MS = 800;
 function latencyMs(min: number, max: number): number {
   if (import.meta.env?.MODE === "test") return 0;
   const span = max - min;
-  return min + Math.floor((Date.now() % 1000) / 1000 * span);
+  return min + Math.floor(((Date.now() % 1000) / 1000) * span);
 }
 
-export function delay(min = DEFAULT_MIN_MS, max = DEFAULT_MAX_MS): Promise<void> {
+export function delay(
+  min = DEFAULT_MIN_MS,
+  max = DEFAULT_MAX_MS,
+): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, latencyMs(min, max)));
 }
 

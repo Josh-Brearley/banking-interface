@@ -19,35 +19,38 @@ routes, and log out. No real backend — `auth.service.ts` simulates the endpoin
 
 ## 3. Functional requirements
 
-| ID | Requirement |
-|----|-------------|
-| `AUTH-FR-01` | **Login page** (`/login`) with Email + Password fields. |
-| `AUTH-FR-02` | **Register page** (`/register`) with Full Name, Email, Password, Confirm Password. |
-| `AUTH-FR-03` | Forms validate with **Zod + React Hook Form**; inline, accessible errors. |
-| `AUTH-FR-04` | Submit shows a **loading state**; form is locked during the request. |
-| `AUTH-FR-05` | Service/API errors render an **accessible error state** (`role="alert"`). |
-| `AUTH-FR-06` | On success, persist `Session` (token + user) to **LocalStorage** and hydrate `AuthProvider`. |
-| `AUTH-FR-07` | **Protected routes**: unauthenticated access redirects to `/login?from=<path>`. |
-| `AUTH-FR-08` | After login, redirect to `from` (if present) else `/dashboard`. |
-| `AUTH-FR-09` | Authenticated users visiting `/login`/`/register` are redirected to `/dashboard`. |
-| `AUTH-FR-10` | **Logout** clears session + React Query cache and returns to `/login`. |
+| ID           | Requirement                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `AUTH-FR-01` | **Login page** (`/login`) with Email + Password fields.                                                               |
+| `AUTH-FR-02` | **Register page** (`/register`) with Full Name, Email, Password, Confirm Password.                                    |
+| `AUTH-FR-03` | Forms validate with **Zod + React Hook Form**; inline, accessible errors.                                             |
+| `AUTH-FR-04` | Submit shows a **loading state**; form is locked during the request.                                                  |
+| `AUTH-FR-05` | Service/API errors render an **accessible error state** (`role="alert"`).                                             |
+| `AUTH-FR-06` | On success, persist `Session` (token + user) to **LocalStorage** and hydrate `AuthProvider`.                          |
+| `AUTH-FR-07` | **Protected routes**: unauthenticated access redirects to `/login?from=<path>`.                                       |
+| `AUTH-FR-08` | After login, redirect to `from` (if present) else `/dashboard`.                                                       |
+| `AUTH-FR-09` | Authenticated users visiting `/login`/`/register` are redirected to `/dashboard`.                                     |
+| `AUTH-FR-10` | **Logout** clears session + React Query cache and returns to `/login`.                                                |
 | `AUTH-FR-11` | On app load, session is **rehydrated** from storage and validated via `GET /auth/me`; a 401 clears it (`NFR-ERR-05`). |
-| `AUTH-FR-12` | Password input has a **show/hide toggle** (`aria-pressed`). |
+| `AUTH-FR-12` | Password input has a **show/hide toggle** (`aria-pressed`).                                                           |
 
 ## 4. Design
 
 ### 4.1 Routes & layout
+
 - `/login`, `/register` render inside **`AuthLayout`** (centered card, brand, no app nav).
 - `AuthLayout` performs the `AUTH-FR-09` redirect.
 - `ProtectedRoute` wraps `AppShell` (`AUTH-FR-07`).
 
 ### 4.2 Components (`features/auth/`)
+
 - `pages/LoginPage`, `pages/RegisterPage`
 - `components/LoginForm`, `components/RegisterForm` (RHF + zodResolver)
 - `hooks/useLogin`, `useRegister`, `useLogout`, `useSession` (React Query mutations/queries)
 - `schemas/auth.schema.ts`
 
 ### 4.3 Auth context (`lib/auth` + `app/providers/AuthProvider`)
+
 - Exposes `{ user, isAuthenticated, isLoading, login, logout }` via `useAuth()`.
 - Token + user persisted under a single namespaced key, e.g. `eaglebank.session`.
 - `me` query gates initial render with a splash/skeleton (not a flash of `/login`).
@@ -55,28 +58,40 @@ routes, and log out. No real backend — `auth.service.ts` simulates the endpoin
 ### 4.4 Validation schemas (Zod)
 
 ```ts
-const email = z.string().min(1,"Email is required").email("Enter a valid email");
-const password = z.string()
-  .min(8,"At least 8 characters")
-  .regex(/[A-Z]/,"One uppercase letter")
-  .regex(/[a-z]/,"One lowercase letter")
-  .regex(/[0-9]/,"One number");
+const email = z
+  .string()
+  .min(1, "Email is required")
+  .email("Enter a valid email");
+const password = z
+  .string()
+  .min(8, "At least 8 characters")
+  .regex(/[A-Z]/, "One uppercase letter")
+  .regex(/[a-z]/, "One lowercase letter")
+  .regex(/[0-9]/, "One number");
 
-export const loginSchema = z.object({ email, password: z.string().min(1,"Password is required") });
-
-export const registerSchema = z.object({
-  fullName: z.string().min(2,"Enter your full name"),
+export const loginSchema = z.object({
   email,
-  password,
-  confirmPassword: z.string(),
-}).refine(d => d.password === d.confirmPassword, {
-  path: ["confirmPassword"], message: "Passwords do not match",
+  password: z.string().min(1, "Password is required"),
 });
+
+export const registerSchema = z
+  .object({
+    fullName: z.string().min(2, "Enter your full name"),
+    email,
+    password,
+    confirmPassword: z.string(),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
 ```
+
 > Login uses the relaxed `password` (presence only) so legacy/short passwords can still sign
 > in; registration enforces the strength rules.
 
 ### 4.5 API usage
+
 `login`, `register`, `logout`, `me` per [03 §4.1](../03-api-and-data.md#41-auth--authservicets).
 On success → write session, `queryClient.setQueryData(queryKeys.auth.me(), user)`. On 401
 anywhere → `logout()` + redirect.
@@ -158,12 +173,14 @@ Then the value becomes visible and aria-pressed reflects the state
 ```
 
 ## 6. Edge cases
+
 - Storage unavailable/corrupt JSON → treat as logged out, clear key, no crash.
 - `me` 401 on boot → silent logout to `/login`.
 - Double submit prevented by pending lock (`AUTH-FR-04`).
 - Trimming: email trimmed/lowercased before submit.
 
 ## 7. Tasks
+
 - [ ] `auth.schema.ts` (login/register) + tests.
 - [ ] `auth.service.ts` (login/register/logout/me) with latency + error simulation.
 - [ ] `AuthProvider` + `useAuth` + LocalStorage persistence (`lib/auth`).
@@ -174,6 +191,7 @@ Then the value becomes visible and aria-pressed reflects the state
 - [ ] Tests for `AUTH-AC-01..14` (focus: validation, error state, protected routes).
 
 ## 8. Test plan (maps to [04 §3](../04-testing-strategy.md#3-required-coverage-assessment-minimum))
+
 Login validation (`AC-01..03`), login error (`AC-04`), register validation incl. confirm
 match (`AC-05..07`), protected-route redirect + intended-path (`AC-09..10`), logout
 (`AC-12`). RTL + user-event + MSW override for the 401 case.

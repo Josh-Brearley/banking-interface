@@ -27,7 +27,11 @@ export function formatMoney(
 /** Format an ISO date string for display. NFR-FMT-02. */
 export function formatDate(
   iso: string,
-  style: Intl.DateTimeFormatOptions = { day: "2-digit", month: "short", year: "numeric" },
+  style: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  },
 ): string {
   return new Intl.DateTimeFormat(LOCALE, style).format(new Date(iso));
 }

@@ -17,7 +17,8 @@ const crcTable = (() => {
 })();
 function crc32(buf) {
   let c = 0xffffffff;
-  for (let i = 0; i < buf.length; i++) c = crcTable[(c ^ buf[i]) & 0xff] ^ (c >>> 8);
+  for (let i = 0; i < buf.length; i++)
+    c = crcTable[(c ^ buf[i]) & 0xff] ^ (c >>> 8);
   return (c ^ 0xffffffff) >>> 0;
 }
 
@@ -61,9 +62,13 @@ const stride = width * bpp;
 const pixels = Buffer.alloc(height * stride);
 for (let y = 0; y < height; y++) {
   const filter = raw[y * (stride + 1)];
-  const inRow = raw.subarray(y * (stride + 1) + 1, y * (stride + 1) + 1 + stride);
+  const inRow = raw.subarray(
+    y * (stride + 1) + 1,
+    y * (stride + 1) + 1 + stride,
+  );
   const out = pixels.subarray(y * stride, y * stride + stride);
-  const prev = y > 0 ? pixels.subarray((y - 1) * stride, (y - 1) * stride + stride) : null;
+  const prev =
+    y > 0 ? pixels.subarray((y - 1) * stride, (y - 1) * stride + stride) : null;
   for (let x = 0; x < stride; x++) {
     const a = x >= bpp ? out[x - bpp] : 0;
     const b = prev ? prev[x] : 0;
@@ -104,7 +109,9 @@ let sy = Math.round(cy - side / 2);
 sx = Math.max(0, Math.min(sx, width - side));
 sy = Math.max(0, Math.min(sy, height - side));
 
-console.log(`bbox ${bw}x${bh} at (${minX},${minY}) -> crop ${side}x${side} at (${sx},${sy})`);
+console.log(
+  `bbox ${bw}x${bh} at (${minX},${minY}) -> crop ${side}x${side} at (${sx},${sy})`,
+);
 
 // Build cropped RGBA + filter-0 scanlines.
 const outStride = side * bpp;

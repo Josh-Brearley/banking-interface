@@ -15,7 +15,8 @@ export function useTransactionsParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const q = searchParams.get("q") ?? "";
-  const type = (searchParams.get("type") as TransactionType | null) ?? undefined;
+  const type =
+    (searchParams.get("type") as TransactionType | null) ?? undefined;
   const from = searchParams.get("from") ?? "";
   const to = searchParams.get("to") ?? "";
   const sort = (searchParams.get("sort") as "date" | "amount") || "date";
@@ -60,5 +61,17 @@ export function useTransactionsParams() {
 
   const hasFilters = Boolean(q || type || from || to);
 
-  return { q, type, from, to, sort, dir, page, query, hasFilters, update, clearFilters };
+  return {
+    q,
+    type,
+    from,
+    to,
+    sort,
+    dir,
+    page,
+    query,
+    hasFilters,
+    update,
+    clearFilters,
+  };
 }

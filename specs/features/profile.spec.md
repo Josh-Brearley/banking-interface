@@ -10,28 +10,30 @@ an **avatar (frontend-only)**. Validation via React Hook Form + Zod. Backed by
 `GET/PATCH /api/profile` ([03 §4.5](../03-api-and-data.md#45-profile--profileservicets)).
 
 ## 2. User stories
+
 - As a user, I can **view** my current profile details.
 - I can **edit and save** them with clear validation.
 - I can **set a profile picture** locally.
 
 ## 3. Functional requirements
 
-| ID | Requirement |
-|----|-------------|
-| `PROF-FR-01` | **View** mode showing Full Name, Email, Phone Number, Address, and Avatar. |
-| `PROF-FR-02` | **Edit** form for Full Name, Email, Phone Number, Address (line1/line2/city/postcode/country). |
-| `PROF-FR-03` | Validation via **RHF + Zod**: required name, valid email, valid UK-style phone, address fields. |
-| `PROF-FR-04` | **Save** calls `PATCH /api/profile`; shows loading; on success shows confirmation and reflects new values. |
-| `PROF-FR-05` | On success, **invalidate** `profile.me()` and `auth.me()` so the rest of the app (e.g. dashboard greeting) updates (`03 §6`). |
-| `PROF-FR-06` | **422 field errors** map back onto the corresponding inputs (`NFR-ERR-04`). |
-| `PROF-FR-07` | **Avatar upload** (frontend only): file picker, client-side type/size validation, preview via object/data URL; not persisted to a server. |
+| ID           | Requirement                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PROF-FR-01` | **View** mode showing Full Name, Email, Phone Number, Address, and Avatar.                                                                                                                                                                                                                                                                                                       |
+| `PROF-FR-02` | **Edit** form for Full Name, Email, Phone Number, Address (line1/line2/city/postcode/country).                                                                                                                                                                                                                                                                                   |
+| `PROF-FR-03` | Validation via **RHF + Zod**: required name, valid email, valid UK-style phone, address fields.                                                                                                                                                                                                                                                                                  |
+| `PROF-FR-04` | **Save** calls `PATCH /api/profile`; shows loading; on success shows confirmation and reflects new values.                                                                                                                                                                                                                                                                       |
+| `PROF-FR-05` | On success, **invalidate** `profile.me()` and `auth.me()` so the rest of the app (e.g. dashboard greeting) updates (`03 §6`).                                                                                                                                                                                                                                                    |
+| `PROF-FR-06` | **422 field errors** map back onto the corresponding inputs (`NFR-ERR-04`).                                                                                                                                                                                                                                                                                                      |
+| `PROF-FR-07` | **Avatar upload** (frontend only): file picker, client-side type/size validation, preview via object/data URL; not persisted to a server.                                                                                                                                                                                                                                        |
 | `PROF-FR-08` | **Dirty/Cancel**: editing can be cancelled, reverting to the last saved values. Save is disabled until the form is **dirty**. Validity is enforced at submit time (invalid submit is blocked, shows errors, and focuses the first invalid field) rather than by hard-disabling the button — disabling submit-on-invalid is an a11y anti-pattern and conflicts with `PROF-AC-02`. |
-| `PROF-FR-09` | Loading (initial fetch) → skeleton; Error → ErrorState + retry. |
-| `PROF-FR-10` | Fully accessible form (labels, `aria-invalid`, `aria-describedby`, focus to first error on submit). |
+| `PROF-FR-09` | Loading (initial fetch) → skeleton; Error → ErrorState + retry.                                                                                                                                                                                                                                                                                                                  |
+| `PROF-FR-10` | Fully accessible form (labels, `aria-invalid`, `aria-describedby`, focus to first error on submit).                                                                                                                                                                                                                                                                              |
 
 ## 4. Design
 
 ### 4.1 Components (`features/profile/`)
+
 - `pages/ProfilePage`
 - `components/ProfileView` (read mode) / `ProfileForm` (edit mode)
 - `components/AvatarUpload`
@@ -43,15 +45,22 @@ an **avatar (frontend-only)**. Validation via React Hook Form + Zod. Backed by
 ```ts
 export const profileSchema = z.object({
   fullName: z.string().min(2, "Enter your full name"),
-  email: z.string().min(1,"Email is required").email("Enter a valid email"),
-  phoneNumber: z.string()
+  email: z.string().min(1, "Email is required").email("Enter a valid email"),
+  phoneNumber: z
+    .string()
     .regex(/^(\+?44|0)\d{9,10}$/, "Enter a valid UK phone number")
-    .optional().or(z.literal("")),
+    .optional()
+    .or(z.literal("")),
   address: z.object({
-    line1: z.string().min(1,"Address line 1 is required"),
+    line1: z.string().min(1, "Address line 1 is required"),
     line2: z.string().optional(),
-    city: z.string().min(1,"City is required"),
-    postcode: z.string().regex(/^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i, "Enter a valid UK postcode"),
+    city: z.string().min(1, "City is required"),
+    postcode: z
+      .string()
+      .regex(
+        /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i,
+        "Enter a valid UK postcode",
+      ),
     country: z.string().min(1).default("GB"),
   }),
 });
@@ -59,11 +68,13 @@ export type ProfileFormValues = z.infer<typeof profileSchema>;
 ```
 
 ### 4.3 Avatar rules
+
 - Accept `image/png, image/jpeg, image/webp`; max ~2MB (client-validated).
 - Preview immediately via `URL.createObjectURL`/data URL; store on the user object in cache.
 - Invalid type/size → inline error, no upload. Avatar is decorative-with-name → `alt` = user name.
 
 ### 4.4 Mutation flow
+
 `useUpdateProfile` → `updateProfile(values)`; on success `setQueryData`/`invalidateQueries`
 for `profile.me()` + `auth.me()`, show success toast/inline confirmation, return to view mode.
 On `ApiError(422)` map `fieldErrors` via `setError`.
@@ -125,12 +136,14 @@ Then an ErrorState with Retry is shown
 ```
 
 ## 6. Edge cases
+
 - Optional phone: empty is valid; present must match pattern.
 - Postcode normalised/uppercased on submit.
 - Object URL revoked on unmount/replacement to avoid leaks.
 - Concurrent edits: mutation `onError` restores previous cache (optimistic update optional).
 
 ## 7. Tasks
+
 - [ ] `profile.schema.ts` + tests.
 - [ ] `useProfile`, `useUpdateProfile` (+ invalidation of `profile.me`/`auth.me`).
 - [ ] `ProfileView`, `ProfileForm` (RHF + zodResolver, dirty/valid gating, focus-to-error).
@@ -140,6 +153,7 @@ Then an ErrorState with Retry is shown
 - [ ] Tests `PROF-AC-02..05` (validation + successful update are required coverage), avatar + cancel.
 
 ## 8. Test plan (validation & successful update are [04 §3](../04-testing-strategy.md#3-required-coverage-assessment-minimum) minimums)
+
 Integration: render `ProfilePage` (MSW); assert view values; enter invalid data → messages +
 no save + focus to first error; valid edit → PATCH sent, confirmation shown, values updated;
 name change invalidates auth so greeting updates; 422 handler → field error mapped; avatar

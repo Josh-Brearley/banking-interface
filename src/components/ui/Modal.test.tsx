@@ -9,7 +9,11 @@ function Harness() {
   return (
     <>
       <button onClick={() => setOpen(true)}>Open modal</button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Transaction details">
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Transaction details"
+      >
         <p>Body content</p>
         <button>Inside action</button>
       </Modal>

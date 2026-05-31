@@ -58,9 +58,14 @@ export function register({
       (u) => u.email.toLowerCase() === email.trim().toLowerCase(),
     );
     if (exists) {
-      throw new ApiError(409, "EMAIL_TAKEN", "That email is already registered.", {
-        email: "That email is already registered.",
-      });
+      throw new ApiError(
+        409,
+        "EMAIL_TAKEN",
+        "That email is already registered.",
+        {
+          email: "That email is already registered.",
+        },
+      );
     }
     const seed: SeedUser = {
       id: `usr_${users.length + 1}`,

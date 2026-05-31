@@ -9,6 +9,12 @@ interface Options extends Omit<RenderOptions, "wrapper"> {
   withAuth?: boolean;
 }
 
+// Opt into v7 behaviours to match the app router and silence migration warnings.
+const routerFuture = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+} as const;
+
 /**
  * Render a component inside the app's providers — specs/04-testing-strategy.md §2.
  * Uses a fresh QueryClient with retries disabled for deterministic tests.
@@ -24,12 +30,14 @@ export function renderWithProviders(
   function Wrapper({ children }: { children: ReactNode }) {
     const tree = (
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={initialEntries} future={routerFuture}>
+          {children}
+        </MemoryRouter>
       </QueryClientProvider>
     );
     return withAuth ? (
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter initialEntries={initialEntries}>
+        <MemoryRouter initialEntries={initialEntries} future={routerFuture}>
           <AuthProvider>{children}</AuthProvider>
         </MemoryRouter>
       </QueryClientProvider>

@@ -21,7 +21,9 @@ describe("RegisterForm", () => {
     await userEvent.click(
       screen.getByRole("button", { name: /create account/i }),
     );
-    expect(await screen.findByText(/enter your full name/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/enter your full name/i),
+    ).toBeInTheDocument();
     expect(screen.getByText(/email is required/i)).toBeInTheDocument();
     expect(screen.getByText(/at least 8 characters/i)).toBeInTheDocument();
   });
@@ -32,7 +34,9 @@ describe("RegisterForm", () => {
     await userEvent.click(
       screen.getByRole("button", { name: /create account/i }),
     );
-    expect(await screen.findByText(/at least 8 characters/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/at least 8 characters/i),
+    ).toBeInTheDocument();
   });
 
   it("requires the passwords to match (AUTH-AC-07)", async () => {

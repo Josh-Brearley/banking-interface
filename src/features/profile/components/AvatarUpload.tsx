@@ -45,7 +45,7 @@ export function AvatarUpload({ name, src, onChange }: AvatarUploadProps) {
       <div>
         <label
           htmlFor={inputId}
-          className="inline-flex h-9 cursor-pointer items-center rounded-md border border-border bg-surface px-3 text-body-sm font-medium hover:bg-surface-muted focus-within:ring-2 focus-within:ring-ring"
+          className="inline-flex h-9 cursor-pointer items-center rounded-md border border-border bg-surface px-3 text-body-sm font-medium focus-within:ring-2 focus-within:ring-ring hover:bg-surface-muted"
         >
           Change photo
         </label>

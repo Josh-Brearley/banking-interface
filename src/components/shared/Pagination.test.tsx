@@ -11,9 +11,7 @@ describe("Pagination", () => {
 
   it("disables previous on the first page", () => {
     render(<Pagination page={1} totalPages={3} onPageChange={vi.fn()} />);
-    expect(
-      screen.getByRole("button", { name: /previous/i }),
-    ).toBeDisabled();
+    expect(screen.getByRole("button", { name: /previous/i })).toBeDisabled();
   });
 
   it("disables next on the last page", () => {

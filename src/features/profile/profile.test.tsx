@@ -60,9 +60,13 @@ describe("ProfilePage", () => {
     const email = screen.getByLabelText(/^email/i);
     await userEvent.clear(email);
     await userEvent.type(email, "not-an-email");
-    await userEvent.click(screen.getByRole("button", { name: /save changes/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /save changes/i }),
+    );
 
-    expect(await screen.findByText(/enter your full name/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/enter your full name/i),
+    ).toBeInTheDocument();
     expect(screen.getByText(/enter a valid email/i)).toBeInTheDocument();
     expect(updateSpy).not.toHaveBeenCalled();
     expect(name).toHaveFocus();
@@ -79,11 +83,11 @@ describe("ProfilePage", () => {
     const postcode = screen.getByLabelText(/postcode/i);
     await userEvent.clear(postcode);
     await userEvent.type(postcode, "123");
-    await userEvent.click(screen.getByRole("button", { name: /save changes/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /save changes/i }),
+    );
 
-    expect(
-      await screen.findByText(/valid uk phone/i),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(/valid uk phone/i)).toBeInTheDocument();
     expect(screen.getByText(/valid uk postcode/i)).toBeInTheDocument();
   });
 
@@ -98,7 +102,9 @@ describe("ProfilePage", () => {
     const name = screen.getByLabelText(/full name/i);
     await userEvent.clear(name);
     await userEvent.type(name, "Priya Patel");
-    await userEvent.click(screen.getByRole("button", { name: /save changes/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /save changes/i }),
+    );
 
     expect(await screen.findByText(/profile updated/i)).toBeInTheDocument();
     expect(await screen.findByText("Priya Patel")).toBeInTheDocument();
@@ -126,7 +132,9 @@ describe("ProfilePage", () => {
     const name = screen.getByLabelText(/full name/i);
     await userEvent.clear(name);
     await userEvent.type(name, "Priya Patel");
-    await userEvent.click(screen.getByRole("button", { name: /save changes/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /save changes/i }),
+    );
     expect(await screen.findByText(/auth: priya patel/i)).toBeInTheDocument();
   });
 
@@ -142,8 +150,12 @@ describe("ProfilePage", () => {
     const email = screen.getByLabelText(/^email/i);
     await userEvent.clear(email);
     await userEvent.type(email, "taken@eaglebank.com");
-    await userEvent.click(screen.getByRole("button", { name: /save changes/i }));
-    expect(await screen.findByText(/email already in use/i)).toBeInTheDocument();
+    await userEvent.click(
+      screen.getByRole("button", { name: /save changes/i }),
+    );
+    expect(
+      await screen.findByText(/email already in use/i),
+    ).toBeInTheDocument();
   });
 
   it("reverts changes on cancel (PROF-AC-08)", async () => {

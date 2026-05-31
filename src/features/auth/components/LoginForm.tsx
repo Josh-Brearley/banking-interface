@@ -44,7 +44,11 @@ export function LoginForm() {
           Log in to your Eagle Bank account.
         </p>
 
-        <form className="mt-6 flex flex-col gap-4" onSubmit={onSubmit} noValidate>
+        <form
+          className="mt-6 flex flex-col gap-4"
+          onSubmit={onSubmit}
+          noValidate
+        >
           {errorMessage && (
             <p
               role="alert"

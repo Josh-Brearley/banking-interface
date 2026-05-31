@@ -96,7 +96,10 @@ function DialogPanel({
               {title}
             </h2>
             {description && (
-              <p id={descId} className="mt-1 text-body-sm text-foreground-muted">
+              <p
+                id={descId}
+                className="mt-1 text-body-sm text-foreground-muted"
+              >
                 {description}
               </p>
             )}

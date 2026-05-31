@@ -10,11 +10,14 @@ export function App() {
       <Suspense
         fallback={
           <div className="flex min-h-screen items-center justify-center">
-            <Spinner className="h-6 w-6 text-primary" label="Loading Eagle Bank" />
+            <Spinner
+              className="h-6 w-6 text-primary"
+              label="Loading Eagle Bank"
+            />
           </div>
         }
       >
-        <RouterProvider router={router} />
+        <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </Suspense>
     </AppProviders>
   );

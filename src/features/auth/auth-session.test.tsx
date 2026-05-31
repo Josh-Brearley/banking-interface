@@ -35,7 +35,9 @@ describe("Auth session", () => {
   it("clears the session on logout (AUTH-AC-12)", async () => {
     await seedSession();
     renderWithProviders(<AuthProbe />);
-    await userEvent.click(await screen.findByRole("button", { name: /log out/i }));
+    await userEvent.click(
+      await screen.findByRole("button", { name: /log out/i }),
+    );
     expect(await screen.findByText(/logged out/i)).toBeInTheDocument();
     await waitFor(() => expect(readSession()).toBeNull());
   });

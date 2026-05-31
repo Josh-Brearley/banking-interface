@@ -23,18 +23,18 @@ handling, loading states, and caching are all production-shaped.
 
 ## 2. Engineering principles (non-negotiable)
 
-| ID | Principle | What it means in practice |
-|----|-----------|---------------------------|
-| `ARCH-NFR-01` | **Feature-first architecture** | Code is organised by feature/domain, not by file type. Features are independently ownable and removable. See [01-architecture](./01-architecture.md). |
-| `ARCH-NFR-02` | **Strict module boundaries** | Features MUST NOT import from each other's internals. Shared code lives in `components/`, `lib/`, `hooks/`, `services/`, `types/`. |
-| `ARCH-NFR-03` | **Type safety end to end** | `strict` TypeScript. No `any` in committed code (lint error). Runtime data validated with Zod at the boundary. |
-| `ARCH-NFR-04` | **Server state ≠ client state** | Remote data is owned by TanStack Query. Local UI state uses React state/context. Never duplicate server state into local state. |
-| `ARCH-NFR-05` | **Accessibility is a feature, not a polish step** | Every component ships keyboard + screen-reader support. A PR that regresses a11y is a broken PR. |
-| `ARCH-NFR-06` | **Small, composable units** | Components do one thing. Files trend small; large files are a smell, not a milestone. No prop drilling beyond one level — lift to context or compose. |
-| `ARCH-NFR-07` | **Every state has a UI** | Loading, empty, error, and success are designed for every data-driven view. "Happy path only" is incomplete. |
-| `ARCH-NFR-08` | **Tests express intent** | Tests assert user-observable behaviour and trace to a requirement ID. We test behaviour, not implementation details. |
-| `ARCH-NFR-09` | **Performance budget is a contract** | Route-level code splitting, lazy loading, memoisation where it pays. Lighthouse Performance & Accessibility ≥ 90. |
-| `ARCH-NFR-10` | **Motion serves usability** | Animations are subtle and purposeful, respect `prefers-reduced-motion`, and never block interaction. |
+| ID            | Principle                                         | What it means in practice                                                                                                                             |
+| ------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ARCH-NFR-01` | **Feature-first architecture**                    | Code is organised by feature/domain, not by file type. Features are independently ownable and removable. See [01-architecture](./01-architecture.md). |
+| `ARCH-NFR-02` | **Strict module boundaries**                      | Features MUST NOT import from each other's internals. Shared code lives in `components/`, `lib/`, `hooks/`, `services/`, `types/`.                    |
+| `ARCH-NFR-03` | **Type safety end to end**                        | `strict` TypeScript. No `any` in committed code (lint error). Runtime data validated with Zod at the boundary.                                        |
+| `ARCH-NFR-04` | **Server state ≠ client state**                   | Remote data is owned by TanStack Query. Local UI state uses React state/context. Never duplicate server state into local state.                       |
+| `ARCH-NFR-05` | **Accessibility is a feature, not a polish step** | Every component ships keyboard + screen-reader support. A PR that regresses a11y is a broken PR.                                                      |
+| `ARCH-NFR-06` | **Small, composable units**                       | Components do one thing. Files trend small; large files are a smell, not a milestone. No prop drilling beyond one level — lift to context or compose. |
+| `ARCH-NFR-07` | **Every state has a UI**                          | Loading, empty, error, and success are designed for every data-driven view. "Happy path only" is incomplete.                                          |
+| `ARCH-NFR-08` | **Tests express intent**                          | Tests assert user-observable behaviour and trace to a requirement ID. We test behaviour, not implementation details.                                  |
+| `ARCH-NFR-09` | **Performance budget is a contract**              | Route-level code splitting, lazy loading, memoisation where it pays. Lighthouse Performance & Accessibility ≥ 90.                                     |
+| `ARCH-NFR-10` | **Motion serves usability**                       | Animations are subtle and purposeful, respect `prefers-reduced-motion`, and never block interaction.                                                  |
 
 ---
 
@@ -54,21 +54,23 @@ A faster but inaccessible solution loses. A prettier but untested solution loses
 
 ## 4. Personas
 
-| Persona | Goal | Implication |
-|---------|------|-------------|
+| Persona                       | Goal                                                                     | Implication                                                     |
+| ----------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------- |
 | **Priya — everyday customer** | Check balance, review transactions, transfer money on mobile in seconds. | Mobile-first, fast, low cognitive load, clear money formatting. |
-| **Sam — accessibility user** | Operate the entire app with a keyboard and screen reader. | Full keyboard nav, focus management, ARIA, semantic HTML. |
-| **Engineering reviewer** | Assess architecture, scalability, maintainability. | Clean boundaries, documented decisions, traceable specs/tests. |
+| **Sam — accessibility user**  | Operate the entire app with a keyboard and screen reader.                | Full keyboard nav, focus management, ARIA, semantic HTML.       |
+| **Engineering reviewer**      | Assess architecture, scalability, maintainability.                       | Clean boundaries, documented decisions, traceable specs/tests.  |
 
 ---
 
 ## 5. Scope
 
 ### In scope
+
 Mocked auth, dashboard, accounts, transactions, profile; design system; error handling;
 a11y; performance; tests; README of decisions.
 
 ### Out of scope (mocked or deferred)
+
 Real backend, real money movement, real KYC, server-side rendering, push notifications,
 multi-currency conversion logic. Transfer "Quick Action" navigates/opens UI but does not
 move real money. Avatar upload is frontend-only (object URL / base64, not persisted to a server).
@@ -77,13 +79,13 @@ move real money. Avatar upload is frontend-only (object URL / base64, not persis
 
 ## 6. Glossary
 
-| Term | Definition |
-|------|------------|
-| **Account** | A banking product instance owned by a user (e.g. Savings, Credit). Has a balance, status, type, masked number. |
-| **Transaction** | A money event on an account: `deposit`, `withdrawal`, or `transfer`. |
-| **Session** | The persisted authenticated state (token + user) in LocalStorage. |
-| **Service** | A module in `src/services/` that mimics a backend API call (latency, errors). |
-| **Minor units** | Money stored as integer pennies/cents to avoid float error. £12.34 → `1234`. |
+| Term            | Definition                                                                                                     |
+| --------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Account**     | A banking product instance owned by a user (e.g. Savings, Credit). Has a balance, status, type, masked number. |
+| **Transaction** | A money event on an account: `deposit`, `withdrawal`, or `transfer`.                                           |
+| **Session**     | The persisted authenticated state (token + user) in LocalStorage.                                              |
+| **Service**     | A module in `src/services/` that mimics a backend API call (latency, errors).                                  |
+| **Minor units** | Money stored as integer pennies/cents to avoid float error. £12.34 → `1234`.                                   |
 
 ---
 

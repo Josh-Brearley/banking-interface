@@ -1,9 +1,4 @@
-import type {
-  Account,
-  DashboardSummary,
-  Transaction,
-  User,
-} from "@/types";
+import type { Account, DashboardSummary, Transaction, User } from "@/types";
 
 /** Typed factories for tests — specs/04-testing-strategy.md §2. */
 

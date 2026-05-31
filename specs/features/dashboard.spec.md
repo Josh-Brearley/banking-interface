@@ -10,47 +10,52 @@ headline balance, monthly in/out, recent activity, and quick actions. Backed by
 `GET /api/dashboard/summary` ([03 §4.2](../03-api-and-data.md#42-dashboard--dashboardservicets)).
 
 ## 2. User stories
+
 - As a customer, I see my **total balance** and this month's **money in/out** at a glance.
 - I see my **most recent transactions** without leaving the dashboard.
 - I can jump to common tasks via **quick actions**.
 
 ## 3. Functional requirements
 
-| ID | Requirement |
-|----|-------------|
-| `DASH-FR-01` | **Welcome message** with the user's first name (from `useAuth`). |
-| `DASH-FR-02` | **Total balance** StatCard (sum across accounts), formatted GBP. |
-| `DASH-FR-03` | **Monthly deposits** StatCard (current month credits). |
-| `DASH-FR-04` | **Monthly withdrawals** StatCard (current month debits). |
+| ID           | Requirement                                                                                               |
+| ------------ | --------------------------------------------------------------------------------------------------------- |
+| `DASH-FR-01` | **Welcome message** with the user's first name (from `useAuth`).                                          |
+| `DASH-FR-02` | **Total balance** StatCard (sum across accounts), formatted GBP.                                          |
+| `DASH-FR-03` | **Monthly deposits** StatCard (current month credits).                                                    |
+| `DASH-FR-04` | **Monthly withdrawals** StatCard (current month debits).                                                  |
 | `DASH-FR-05` | **Recent transactions** list (latest 5), newest first, with type badge, description, date, signed amount. |
-| `DASH-FR-06` | **Quick actions:** Transfer Money, View Accounts, View Transactions, Manage Profile. |
-| `DASH-FR-07` | **Loading** state renders skeletons for stat cards and the recent list (`NFR-PERF-08`). |
-| `DASH-FR-08` | **Empty** state when the user has no accounts/transactions, with guidance. |
-| `DASH-FR-09` | **Error** state with retry wired to `refetch` (`NFR-ERR-03`). |
-| `DASH-FR-10` | Fully **responsive**: stat cards stack on mobile, grid on desktop. |
+| `DASH-FR-06` | **Quick actions:** Transfer Money, View Accounts, View Transactions, Manage Profile.                      |
+| `DASH-FR-07` | **Loading** state renders skeletons for stat cards and the recent list (`NFR-PERF-08`).                   |
+| `DASH-FR-08` | **Empty** state when the user has no accounts/transactions, with guidance.                                |
+| `DASH-FR-09` | **Error** state with retry wired to `refetch` (`NFR-ERR-03`).                                             |
+| `DASH-FR-10` | Fully **responsive**: stat cards stack on mobile, grid on desktop.                                        |
 
 ## 4. Design
 
 ### 4.1 Layout
+
 - `PageHeader` with greeting (`DASH-FR-01`).
 - Responsive grid of 3 `StatCard`s (balance / deposits / withdrawals).
 - `Card` "Recent activity" → list of up to 5 `TransactionRow`s + a "View all" link to `/transactions`.
 - Quick actions row of 4 action cards/buttons with icons.
 
 ### 4.2 Components (`features/dashboard/`)
+
 - `pages/DashboardPage`
 - `components/BalanceSummary` (the 3 stat cards), `RecentTransactions`, `QuickActions`
 - `hooks/useDashboardSummary` → `useQuery(queryKeys.dashboard.summary(), getSummary)`
 
 ### 4.3 Quick action targets
-| Action | Behaviour |
-|--------|-----------|
-| Transfer Money | Opens a Transfer modal/route (UI only — no real movement, see [00 §5](../00-product-constitution.md#5-scope)). |
-| View Accounts | Navigate `/accounts`. |
-| View Transactions | Navigate `/transactions`. |
-| Manage Profile | Navigate `/profile`. |
+
+| Action            | Behaviour                                                                                                      |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| Transfer Money    | Opens a Transfer modal/route (UI only — no real movement, see [00 §5](../00-product-constitution.md#5-scope)). |
+| View Accounts     | Navigate `/accounts`.                                                                                          |
+| View Transactions | Navigate `/transactions`.                                                                                      |
+| Manage Profile    | Navigate `/profile`.                                                                                           |
 
 ### 4.4 Data
+
 `useDashboardSummary` returns `DashboardSummary`. Amounts are minor units → `MoneyAmount`.
 Deposits shown positive/success; withdrawals shown with `−` sign/danger colour (paired with
 sign, not colour alone — `NFR-A11Y-07`).
@@ -96,11 +101,13 @@ Then the stat cards stack vertically and remain readable
 ```
 
 ## 6. Edge cases
+
 - New user (zero data) → friendly empty state, not zeros-with-no-context (still may show £0.00 balance with guidance).
 - Negative net month handled (withdrawals > deposits) without layout break.
 - Greeting falls back to "Welcome" if name missing.
 
 ## 7. Tasks
+
 - [ ] `useDashboardSummary` hook.
 - [ ] `BalanceSummary` (3 StatCards) + skeleton variant.
 - [ ] `RecentTransactions` list + empty/loading.
@@ -109,6 +116,7 @@ Then the stat cards stack vertically and remain readable
 - [ ] Tests `DASH-AC-01..08` (greeting, figures, loading, empty, error+retry).
 
 ## 8. Test plan
+
 Integration test rendering `DashboardPage` with MSW: assert greeting, formatted figures,
 recent list order, skeleton on pending, EmptyState on empty handler, ErrorState + retry on
 failing handler, quick-action navigation.

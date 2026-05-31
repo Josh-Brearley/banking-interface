@@ -6,8 +6,10 @@ export interface SelectOption {
   value: string;
 }
 
-export interface SelectProps
-  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "id"> {
+export interface SelectProps extends Omit<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  "id"
+> {
   label: string;
   options: SelectOption[];
   hint?: string;
@@ -19,7 +21,17 @@ export interface SelectProps
 /** Native styled Select — specs/02-design-system.md §3.3 (DS-FR-12). */
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
-    { label, options, hint, error, placeholder, id, className, defaultValue, ...rest },
+    {
+      label,
+      options,
+      hint,
+      error,
+      placeholder,
+      id,
+      className,
+      defaultValue,
+      ...rest
+    },
     ref,
   ) => {
     const autoId = useId();
