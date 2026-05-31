@@ -1,4 +1,9 @@
-import type { Account, Transaction, User } from "@/types";
+import type {
+  Account,
+  DashboardSummary,
+  Transaction,
+  User,
+} from "@/types";
 
 /** Typed factories for tests — specs/04-testing-strategy.md §2. */
 
@@ -42,6 +47,35 @@ export function makeTransaction(
     currency: "GBP",
     description: "Test Merchant",
     createdAt: "2026-05-01T12:00:00.000Z",
+    ...overrides,
+  };
+}
+
+export function makeDashboardSummary(
+  overrides: Partial<DashboardSummary> = {},
+): DashboardSummary {
+  return {
+    totalBalanceMinor: 348215,
+    currency: "GBP",
+    monthlyDepositsMinor: 285000,
+    monthlyWithdrawalsMinor: 50000,
+    accountsCount: 3,
+    recentTransactions: [
+      makeTransaction({
+        id: "txn_a",
+        type: "deposit",
+        direction: "credit",
+        amountMinor: 285000,
+        description: "Salary - Acme Ltd",
+        createdAt: "2026-05-28T08:00:00.000Z",
+      }),
+      makeTransaction({
+        id: "txn_b",
+        description: "Tesco",
+        amountMinor: 4599,
+        createdAt: "2026-05-27T18:00:00.000Z",
+      }),
+    ],
     ...overrides,
   };
 }
