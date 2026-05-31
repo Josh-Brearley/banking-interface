@@ -92,7 +92,8 @@ typecheck     → tsc --noEmit
 lint          → eslint .
 ```
 
-CI (future) runs `lint && typecheck && test:cov && build`. A red gate blocks merge.
+CI ([`.github/workflows/ci.yml`](../.github/workflows/ci.yml)) runs `lint`, `typecheck`,
+`test:cov` and `build` on every PR and push to `main`. A red gate blocks merge.
 
 ---
 

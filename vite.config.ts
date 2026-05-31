@@ -22,7 +22,13 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      exclude: ["**/*.config.*", "src/tests/**", "**/*.d.ts", "src/main.tsx"],
+      exclude: [
+        "**/*.config.*",
+        "src/tests/**",
+        "**/*.test.{ts,tsx}",
+        "**/*.d.ts",
+        "src/main.tsx",
+      ],
     },
   },
 });

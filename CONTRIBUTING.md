@@ -98,7 +98,8 @@ is met and:
 1. Cut a branch from updated `main` (`./scripts/new-branch.sh <type> <name>`).
 2. Implement against the spec; commit in small Conventional Commits.
 3. Open a PR using the template; link the spec and list requirement IDs.
-4. CI (future) runs lint + typecheck + test + build; review required.
+4. CI ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml)) runs lint + typecheck +
+   test + build on every PR; review required.
 5. **Squash-merge** into `main`; delete the branch.
 
 > Local-only setup: pushing to a remote is optional. The same workflow applies whether or not
