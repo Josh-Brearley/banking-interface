@@ -1,10 +1,12 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach } from "vitest";
+import { afterEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 
-// RTL cleanup after each test (specs/04-testing-strategy.md §2).
+// RTL cleanup + isolated session/mocks per test (specs/04-testing-strategy.md §2).
 afterEach(() => {
   cleanup();
+  localStorage.clear();
+  vi.restoreAllMocks();
 });
 
 // jsdom doesn't implement matchMedia; provide a no-op for useMediaQuery etc.
