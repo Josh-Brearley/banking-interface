@@ -26,15 +26,26 @@ Define a primitive palette, then map **semantic** tokens. Components use semanti
 | `--color-border` | `#E6E8EC` | Hairline borders, dividers. |
 | `--color-foreground` | `#0B0D12` | Primary text. |
 | `--color-foreground-muted` | `#5B6472` | Secondary text, captions. |
-| `--color-primary` | `#1A4DDB` | Brand actions, primary buttons, focus accents. |
+| `--color-primary` | `#0B2A5B` | Brand **navy** — primary buttons, links, active states, focus. From the logo. |
 | `--color-primary-foreground` | `#FFFFFF` | Text on primary. |
+| `--color-secondary` | `#18A8E0` | Brand **cyan** accent — active indicators, highlights, decorative fills. From the logo. |
+| `--color-secondary-foreground` | `#FFFFFF` | Text on cyan (large/decorative only — cyan fails AA for small text, so it is not used as a text colour). |
+| `--color-secondary-subtle` | `#E0F4FC` | Light cyan background for accents/badges (pair with navy text). |
 | `--color-success` | `#0E8A52` | Deposits/credits, positive. |
 | `--color-warning` | `#B26A00` | Pending, attention. |
 | `--color-danger` | `#C62330` | Withdrawals/errors, destructive. |
 | `--color-info` | `#1577B8` | Informational. |
-| `--color-ring` | `#1A4DDB` | Focus ring colour. |
+| `--color-ring` | `#0B2A5B` | Focus ring (navy — high contrast on the light canvas). |
 
-Each status colour has a `-subtle` background pair (e.g. `--color-success-subtle`) for badges.
+Status colours have a `-subtle` background pair (e.g. `--color-success-subtle`) for badges; the
+brand cyan has `--color-secondary-subtle`.
+
+**Brand:** primary is the navy from the Eagle Bank eagle; secondary is the cyan wing
+highlight. Navy carries actions/links/focus; cyan is an **accent only** (it does not meet AA
+as small text on light, so never use it for body/link text).
+
+**Typeface:** **Inter** (variable), self-hosted via `@fontsource-variable/inter`, loaded in
+`main.tsx`. Falls back to the system sans stack.
 
 **Contrast (`NFR-A11Y`):** every foreground/background pairing MUST meet **WCAG AA**
 (4.5:1 body text, 3:1 large text & UI components). Semantic money colours (success/danger)

@@ -49,7 +49,7 @@ export function AppShell() {
                     cn(
                       "block rounded-md px-3 py-2 text-body font-medium transition-colors duration-fast",
                       isActive
-                        ? "bg-primary/10 text-primary"
+                        ? "bg-secondary/15 font-semibold text-primary"
                         : "text-foreground-muted hover:bg-surface-muted hover:text-foreground",
                     )
                   }
