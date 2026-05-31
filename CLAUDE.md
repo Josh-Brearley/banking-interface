@@ -25,13 +25,21 @@ Delivered on `main` (each as its own short-lived branch, TDD, merged `--no-ff`):
 - **Transactions**: search + date-range + type filters, sort, pagination, focus-trapped
   detail drawer; all URL-driven.
 - **Profile**: view/edit (RHF + Zod), avatar upload (frontend-only), cross-app sync.
+- **Security** (`NFR-SEC`, [`specs/05-cross-cutting.md §7`](./specs/05-cross-cutting.md)): a strict
+  **Content-Security-Policy** ships on the production build (`script-src 'self'`, no
+  inline/eval — injected build-only from [`lib/security/csp.ts`](./src/lib/security/csp.ts),
+  asserted by its test). No dynamic-code sinks; Zod at every boundary; secrets git-ignored.
+  Header-only controls (`frame-ancestors`, HSTS, `nosniff`) are documented deployment
+  obligations (§7.1), and a real backend still owns hashing/signed tokens/`httpOnly` cookies.
 
-**Status:** all five feature specs complete · **116 tests** (27 files) · gates green
-(lint/typecheck/test/build). Accessibility is verified by automated **axe-core** WCAG 2.1
-A/AA checks over every route + dialog (`src/tests/a11y.test.tsx`), plus route-focus and
-page-title unit tests; contrast is token-verified (jsdom can't compute it). Remaining:
-README polish, optional perf hardening + a browser-based contrast/Lighthouse run
-(see [README → Future improvements](./README.md#future-improvements)).
+**Status:** all five feature specs complete · **122 tests** (28 files) plus a **Playwright E2E
+smoke suite** ([`e2e/`](./e2e), one happy path per feature, real browser over the production
+build) · gates green (lint/typecheck/test/build, CI also runs `e2e`). Accessibility is verified
+by automated **axe-core** WCAG 2.1 A/AA checks over every route + dialog
+(`src/tests/a11y.test.tsx`), plus route-focus and page-title unit tests. Contrast (which jsdom
+can't compute) is now **proven in a real browser**: a committed Lighthouse run scores **100
+accessibility** including `color-contrast`, plus 100 best-practices / 100 SEO / 88–94 perf —
+see [`docs/lighthouse/`](./docs/lighthouse/README.md).
 
 ## Golden rules
 
@@ -50,7 +58,9 @@ README polish, optional perf hardening + a browser-based contrast/Lighthouse run
    axe-core violations (Level A & AA tagsets) in [`src/tests/a11y.test.tsx`](./src/tests/a11y.test.tsx)
    via `expectNoA11yViolations` ([`src/tests/axe.ts`](./src/tests/axe.ts)). Add a new
    page/dialog → add its axe case. `color-contrast` is excluded there (jsdom has no layout
-   engine) and is instead token-verified; prove it in a browser via axe/Lighthouse. Per-route
+   engine), is token-verified, and is **proven in a real-browser Lighthouse run** (committed at
+   [`docs/lighthouse/`](./docs/lighthouse/README.md)); re-run `npm run lighthouse` if you touch
+   the palette. Per-route
    focus + `document.title` come from [`useRouteFocus`](./src/hooks/useRouteFocus.ts) /
    [`useDocumentTitle`](./src/hooks/useDocumentTitle.ts), every new page calls
    `useDocumentTitle`, and `NFR-A11Y` verification is specified in
@@ -66,6 +76,11 @@ README polish, optional perf hardening + a browser-based contrast/Lighthouse run
 11. **Keep the spec honest.** If a spec proves inconsistent or wrong while implementing, update
     the spec (with rationale), don't silently diverge. (e.g. the profile Save-gating decision.)
 12. **Money is integer minor units**: format only at the view edge; never float-math currency.
+13. **Secure by default** (`NFR-SEC`): the production build ships a strict CSP — `script-src
+'self'`, no `'unsafe-inline'`/`'unsafe-eval'`. Never introduce inline `<script>`, `eval`,
+    `new Function`, or `dangerouslySetInnerHTML`. A new external origin (font/image/API) means an
+    explicit directive in [`lib/security/csp.ts`](./src/lib/security/csp.ts) **and** its test.
+    Redirects stay same-origin paths (`NFR-SEC-04`); no secrets in the bundle (`.env*` ignored).
 
 ## TDD workflow
 
@@ -115,12 +130,16 @@ it("shows an accessible error when credentials are rejected", async () => {
 npm run dev          # Vite dev server (http://localhost:5173)
 npm run test:watch   # TDD loop, keep this running
 npm run test         # full suite (CI mode)
+npm run test:e2e     # Playwright E2E (builds + previews, real browser)
 npm run typecheck    # tsc --noEmit
 npm run lint         # eslint, zero warnings allowed
 npm run build        # typecheck + production build
+npm run storybook    # design-system docs (port 6006)
+npm run lighthouse   # build + Lighthouse budgets (a11y is a hard gate)
 ```
 
-Quality gates that must pass before merge: `lint`, `typecheck`, `test`, `build`.
+Quality gates that must pass before merge: `lint`, `typecheck`, `test`, `build`. CI additionally
+runs the Playwright `e2e` job and the Lighthouse budgets (accessibility ≥ 0.9 is a hard gate).
 
 ## Project map
 
@@ -169,6 +188,17 @@ Key conventions:
   figures (trends, contacts, limits) to match a mockup.
 - **Tests** use `tests/renderWithProviders` + typed `tests/fixtures`; query by role/label,
   control viewport via `matchMedia`, and isolate via the `afterEach` cleanup in `tests/setup`.
+- **E2E** ([`e2e/`](./e2e), `npm run test:e2e`) is a thin **Playwright** smoke layer — one happy
+  path per feature, run in a real browser against the production build (`vite preview`), proving
+  what jsdom can't (lazy chunks load, real `localStorage` session, end-to-end render). It lives
+  outside `src/` and is excluded from Vitest (`test.include` in `vite.config.ts`). Auth is
+  established once in `auth.setup.ts` and reused via `storageState`; auth-flow specs opt out with
+  an empty `storageState`. Keep it smoke-thin — exhaustive cases belong in the Vitest layer.
+- **CSP** lives in [`lib/security/csp.ts`](./src/lib/security/csp.ts) and is injected as a
+  `<meta>` **build-only** by the `eaglebank-csp` plugin in `vite.config.ts` (dev/HMR needs
+  inline scripts, so it's untouched there). Keeping `script-src 'self'` strict is why the
+  build sets `modulePreload: { polyfill: false }` — don't re-enable it. Verify a real load
+  with `npm run preview` (watch the console) or `npm run lighthouse`; jsdom can't enforce CSP.
 
 ## Branching quick reference
 

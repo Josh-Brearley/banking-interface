@@ -171,10 +171,31 @@ A token-driven, accessibility-first system (the full catalogue is
 - **Variants** use **class-variance-authority** for type-safe, self-documenting component APIs;
   classes compose via a `cn()` helper (`clsx` + `tailwind-merge`).
 - **Typeface**: Inter (variable), self-hosted (no external request).
-- **Storybook** (`npm run storybook`) is the living catalogue — atoms and molecules each have
-  stories with autodocs, plus a **Foundations/Tokens** page showing the colour palette and type
-  ramp. The **`@storybook/addon-a11y`** runs axe-core in the canvas so violations surface while
-  building components, complementing the route-level axe checks in the test suite.
+
+### Storybook
+
+Storybook is the **living catalogue and documentation** for the design system — the practical
+answer to the brief's "design system thinking" and its Storybook bonus.
+
+```bash
+npm run storybook         # dev server on http://localhost:6006
+npm run build-storybook   # static build (storybook-static/)
+```
+
+- **~27 stories** cover the system end-to-end: every **atom** (Button, Input, Select, Card,
+  Table, Modal, Drawer, Avatar, Badge, Spinner, the icon set, the state components), the
+  **molecules** (StatCard, MoneyAmount, Pagination, BrandLogo, CardGraphic, TransactionTypeBadge,
+  PageHeader…), the **DataTable** organism (table↔card, loading/empty/error, sorting), and the
+  dashboard feature components.
+- A **Foundations / Tokens** page ([`src/components/Foundations.stories.tsx`](./src/components/Foundations.stories.tsx))
+  documents the palette (with the cyan accent-only note), the type ramp, spacing, radii,
+  elevation, and motion durations — all read from the tokens, no inline hex.
+- **Autodocs** are enabled (`autodocs: "tag"`), generating a props table and variant docs from
+  each component's TypeScript + `class-variance-authority` definitions.
+- **`@storybook/addon-a11y`** runs axe-core live in the canvas, so accessibility violations
+  surface while building a component — complementing the route-level axe checks in the test
+  suite. Config lives in [`.storybook/`](./.storybook) (it reuses the app's Vite config, the `@`
+  alias, Tailwind, and wraps stories in a router + brand backgrounds).
 
 ---
 
