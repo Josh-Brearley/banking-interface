@@ -15,8 +15,12 @@
     --color-foreground: 11 13 18; /* #0B0D12 */
     --color-foreground-muted: 91 100 114; /* #5B6472 */
 
-    --color-primary: 26 77 219; /* #1A4DDB */
+    --color-primary: 11 42 91; /* #0B2A5B — brand navy (from logo) */
     --color-primary-foreground: 255 255 255;
+
+    --color-secondary: 24 168 224; /* #18A8E0 — brand cyan accent */
+    --color-secondary-foreground: 255 255 255;
+    --color-secondary-subtle: 224 244 252; /* #E0F4FC */
 
     --color-success: 14 138 82; /* #0E8A52 */
     --color-success-subtle: 224 244 234;
@@ -27,7 +31,7 @@
     --color-info: 21 119 184; /* #1577B8 */
     --color-info-subtle: 224 240 250;
 
-    --color-ring: 26 77 219;
+    --color-ring: 11 42 91; /* navy focus ring — high contrast on light bg */
   }
 
   * {

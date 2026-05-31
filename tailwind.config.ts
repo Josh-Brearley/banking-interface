@@ -24,6 +24,11 @@ const config: Config = {
           DEFAULT: "rgb(var(--color-primary) / <alpha-value>)",
           foreground: "rgb(var(--color-primary-foreground) / <alpha-value>)",
         },
+        secondary: {
+          DEFAULT: "rgb(var(--color-secondary) / <alpha-value>)",
+          foreground: "rgb(var(--color-secondary-foreground) / <alpha-value>)",
+          subtle: "rgb(var(--color-secondary-subtle) / <alpha-value>)",
+        },
         success: {
           DEFAULT: "rgb(var(--color-success) / <alpha-value>)",
           subtle: "rgb(var(--color-success-subtle) / <alpha-value>)",
@@ -55,6 +60,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          "Inter Variable",
           "Inter",
           "system-ui",
           "-apple-system",
